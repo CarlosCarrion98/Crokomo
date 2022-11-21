@@ -39,7 +39,7 @@ class ClienteTest {
 		Prueba2.getRelacionesRequisito().add(aux);
 		assertTrue(Prueba2.getRelacionesRequisito().size() == 1);
 		Cliente Prueba3 = new Cliente(1, 1,arrAux, "Juan", 1);
-		assertTrue(Prueba3.getRelacionesRequisito().size() == 1);
+		assertTrue(Prueba3.getRelacionesRequisito().size() == 1); 
 		
 
 		
