@@ -1,4 +1,4 @@
-package org.tests;
+package org.tests.objects;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 import org.objects.Cliente;
 import org.objects.Proyecto;
-import org.objects.relations.ClienteRequisito;
 
 class ProyectoTest {
 
