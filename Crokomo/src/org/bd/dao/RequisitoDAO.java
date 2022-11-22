@@ -30,9 +30,10 @@ public class RequisitoDAO extends Conexion {
 	public void modificar(Requisito r) {
 		try {
 			iniciarConexion();
-			PreparedStatement st = connection.prepareStatement("UPDATE REQUISITO SET esfuerzo = ? where idRequisito = ?");
+			PreparedStatement st = connection.prepareStatement("UPDATE REQUISITO SET esfuerzo = ?, nombreRequisito = ? where idRequisito = ?");
 			st.setInt(1, r.getEsfuerzo());
-			st.setInt(2, r.getIdRequisito());
+			st.setString(2, r.getNombreRequisito());
+			st.setInt(3, r.getIdRequisito());
 			
 			st.executeUpdate();
 		} catch (SQLException e) {
