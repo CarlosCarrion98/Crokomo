@@ -56,4 +56,26 @@ public class ProyectoDAO extends Conexion {
 		}
 		return proyectos;
 	}
+	
+	public Proyecto obtenerProyectoPorNombre(String nombre) {
+		Proyecto pro = null;
+		
+		try {
+			iniciarConexion();
+			PreparedStatement st = connection.prepareStatement("SELECT * FROM PROYECTO WHERE nombreProyecto = ?");
+			st.setString(1, nombre);
+			ResultSet rs = st.executeQuery();
+			while(rs.next()) {
+				pro = new Proyecto(rs.getInt(1), rs.getString(2), null);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (NullPointerException npe) {
+			System.out.println("El nombre de búsqueda del proyecto es nulo");
+		} finally {
+			cerrarConexion();
+		}
+		
+		return pro;
+	}
 }

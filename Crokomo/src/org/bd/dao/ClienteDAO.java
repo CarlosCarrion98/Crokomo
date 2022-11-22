@@ -31,10 +31,12 @@ public class ClienteDAO extends Conexion {
 	public void modificar(Cliente c) {
 		try {
 			iniciarConexion();
-			PreparedStatement st = connection.prepareStatement("UPDATE CLIENTE SET idCliente = ?, peso = ? where idCliente = ?");
+			PreparedStatement st = connection.prepareStatement("UPDATE CLIENTE SET idCliente = ?, peso = ?, nombreCliente = ?, idProyecto = ? where idCliente = ?");
 			st.setInt(1, c.getIdCliente());
 			st.setInt(2, c.getPeso());
-			st.setInt(3, c.getIdCliente());
+			st.setString(3, c.getNombreCliente());
+			st.setInt(4, c.getIdProyecto());
+			st.setInt(5, c.getIdCliente());
 			st.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

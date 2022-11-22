@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.bd.utilidades.Conexion;
+import org.objects.Proyecto;
 import org.objects.Usuario;
 
 public class UsuarioDAO extends Conexion{
@@ -25,14 +26,14 @@ public class UsuarioDAO extends Conexion{
 			cerrarConexion();
 		}
 	}
-	
+
 	public void modificar(Usuario u) {
 		try {
 			iniciarConexion();
 			PreparedStatement st = connection.prepareStatement("UPDATE USUARIO SET contraseña = ? where nombreUsuario = ?");
 			st.setString(1, u.getPassword());
 			st.setString(2, u.getUserName());
-			
+
 			st.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -56,7 +57,7 @@ public class UsuarioDAO extends Conexion{
 			cerrarConexion();
 		}
 	}
-	
+
 	public String login(Usuario u) {
 		String rol = "Failed";
 		try {
@@ -75,7 +76,29 @@ public class UsuarioDAO extends Conexion{
 		}
 		return rol;
 	}
-	
+
+	public Usuario obtenerUsuarioPorNombre(String userName) {
+		Usuario user = null;
+
+		try {
+			iniciarConexion();
+			PreparedStatement st = connection.prepareStatement("SELECT * FROM USUARIO WHERE nombreUsuario = ?");
+			st.setString(1, userName);
+			ResultSet rs = st.executeQuery();
+			while(rs.next()) {
+				user = new Usuario(rs.getString(1), rs.getString(2), rs.getString(3), null);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (NullPointerException npe) {
+			System.out.println("El nombre de búsqueda del proyecto es nulo");
+		} finally {
+			cerrarConexion();
+		}
+
+		return user;
+	}
+
 	public ArrayList<Usuario> listar() {
 		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
 		try {
