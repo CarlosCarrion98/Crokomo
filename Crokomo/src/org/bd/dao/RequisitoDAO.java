@@ -14,9 +14,9 @@ public class RequisitoDAO extends Conexion {
 	public void insertar(Requisito r) {
 		try {
 			iniciarConexion();
-			PreparedStatement st = connection.prepareStatement("INSERT INTO REQUISITO VALUES(?, ?)");
-			st.setInt(1, r.getIdRequisito());
-			st.setInt(2, r.getEsfuerzo());
+			PreparedStatement st = connection.prepareStatement("INSERT INTO REQUISITO VALUES(null, ?, ?)");
+			st.setInt(1, r.getEsfuerzo());
+			st.setString(2, r.getNombreRequisito());
 			st.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -105,7 +105,7 @@ public class RequisitoDAO extends Conexion {
 			iniciarConexion();
 			PreparedStatement st = connection.prepareStatement("SELECT DISTINCT r.idRequisito, r.esfuerzo, r.nombreRequisito"
 					+ " FROM REQUISITO r, CLIENTE_HAS_REQUISITO cr, Cliente c"
-					+ " WHERE r.idRequisito = cr.Requisito_idRequisito AND cr.Cliente_idCliente = c.idCliente AND c.idProyecto = ?");
+					+ " WHERE r.idRequisito = cr.Requisito_idRequisito AND cr.Cliente_idCliente = c.idCliente AND c.idProyecto = ? ORDER BY length(r.nombreRequisito), r.nombreRequisito");
 			st.setInt(1, p.getIdProyecto());
 			ResultSet rs = st.executeQuery();
 			while(rs.next()) {
@@ -119,5 +119,24 @@ public class RequisitoDAO extends Conexion {
 			cerrarConexion();
 		}
 		return requisitos;
+	}
+	
+	public Requisito obtenerRequisitoPorNombre(String nombreRequisito) {
+		Requisito r = null;
+		try {
+			iniciarConexion();
+			PreparedStatement st = connection.prepareStatement("SELECT * FROM REQUISITO WHERE nombreRequisito = ?");
+			st.setString(1, nombreRequisito);
+			ResultSet rs = st.executeQuery();
+			while(rs.next()) {
+				//Requisito está preparado para recibir valores nulos en las listas.
+				r = new Requisito(rs.getInt(1), rs.getInt(2), rs.getString(3), null, null);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			cerrarConexion();
+		}
+		return r;
 	}
 }

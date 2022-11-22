@@ -95,4 +95,22 @@ public class ClienteDAO extends Conexion {
 		}
 		return clientes;
 	}
+	
+	public Cliente obtenerClientePorNombre(String nombreCliente) {
+		Cliente c = null;
+		try {
+			iniciarConexion();
+			PreparedStatement st = connection.prepareStatement("SELECT * FROM CLIENTE WHERE nombreCliente = ?");
+			st.setString(1, nombreCliente);
+			ResultSet rs = st.executeQuery();
+			while(rs.next()) {
+				c = new Cliente(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getInt(4));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			cerrarConexion();
+		}
+		return c;
+	}
 }
