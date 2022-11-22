@@ -6,12 +6,14 @@ public class Solucion {
 	private ArrayList<Requisito> requisitos;
 	
 	public Solucion(ArrayList<Requisito> requisitos) {
-		if (requisitos != null)
-			for(Requisito r : requisitos)
-				this.requisitos.add(r);
+		if (requisitos != null) {
+			this.requisitos = new ArrayList<Requisito>(requisitos);
+		}else {
+			this.requisitos = new ArrayList<Requisito>();
+		}
 	}
 	
 	public ArrayList<Requisito> getRequisitos() {
-		return requisitos;
+		return requisitos;  
 	}
 }
