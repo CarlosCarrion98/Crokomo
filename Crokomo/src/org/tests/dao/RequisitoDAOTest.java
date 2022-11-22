@@ -2,6 +2,8 @@ package org.tests.dao;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+
 import org.bd.dao.RequisitoDAO;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -39,6 +41,12 @@ class RequisitoDAOTest {
 		rdao.eliminar(r);
 		
 		assertNull(rdao.obtenerRequisitoPorNombre(r.getNombreRequisito()));
+	}
+	
+	@Test
+	void listarTodosLosRequisitos() {
+		ArrayList<Requisito> requisitos = new ArrayList<>();
+		requisitos = rdao.listar();
 	}
 
 }
