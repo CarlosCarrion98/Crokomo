@@ -41,6 +41,10 @@ class ClienteTest {
 		Cliente Prueba3 = new Cliente(1, 1,arrAux, "Juan", 1);
 		assertTrue(Prueba3.getRelacionesRequisito().size() == 1); 
 		
+		//Prueba equals
+		assertFalse(Prueba1.equals(Prueba2));
+		assertTrue(Prueba2.equals(Prueba3));
+		
 
 		
 	}
