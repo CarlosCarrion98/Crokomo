@@ -16,6 +16,8 @@ import org.objects.relations.ClienteRequisito;
 import javax.swing.JLabel;
 import javax.swing.JDesktopPane;
 import java.awt.Color;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import java.awt.Font;
@@ -24,10 +26,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
-import javax.swing.JComboBox;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.JCheckBox;
-import javax.swing.JSplitPane;
 import java.awt.GridLayout;
 
 public class AddRequisito extends JFrame {
@@ -61,6 +60,7 @@ public class AddRequisito extends JFrame {
 	 * Create the frame.
 	 */
 	public AddRequisito(Usuario u, Proyecto p) {
+		setIconImage(new ImageIcon("Assets/icono.png").getImage());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 750, 500);
 		contentPane = new JPanel();
@@ -106,7 +106,6 @@ public class AddRequisito extends JFrame {
 		lblVacio.setBounds(276, 202, 255, 14);
 		contentPane.add(lblVacio);
 
-
 		JLabel lblErrorNumerico = new JLabel("Esfuerzo debe ser un valor numérico");
 		lblErrorNumerico.setHorizontalAlignment(SwingConstants.CENTER);
 		lblErrorNumerico.setForeground(Color.RED);
@@ -144,7 +143,6 @@ public class AddRequisito extends JFrame {
 
 				}
 
-
 			});
 			panel.add(checkBoxCliente);
 			panel.add(textField);
@@ -152,7 +150,6 @@ public class AddRequisito extends JFrame {
 				scrollPane.setBounds(scrollPane.getX(), scrollPane.getY(), scrollPane.getWidth(), scrollPane.getHeight() + 25);
 			}
 		}
-
 
 		JButton botonAddReq = new JButton("Añadir");
 		botonAddReq.setBounds(433, 412, 98, 23);
@@ -175,23 +172,21 @@ public class AddRequisito extends JFrame {
 							if(jcb.isSelected()) {
 								Cliente c = cdao.obtenerClientePorNombre(jcb.getText());
 								if(jcb.getText().equals(c.getNombreCliente()))
-									crdao.insertar(new ClienteRequisito(c.getIdCliente(), temp.getIdRequisito(), Integer.parseInt(textFields.get(checkBoxes.indexOf(jcb)).getText())));
+									crdao.insertar(new ClienteRequisito(c.getIdCliente(), temp.getIdRequisito(), 
+											Integer.parseInt(textFields.get(checkBoxes.indexOf(jcb)).getText())));
 
 							}
 						}
 						ProyectoInterfaz proyecto = new ProyectoInterfaz(u, p);
 						proyecto.setVisible(true);
 						dispose();
-					} catch (Exception e2){
+					} catch (NumberFormatException nfe){
 						lblErrorNumerico.setVisible(true);
 					}
 				}
 
-
-
 			}
 		});
-
 
 		textField.setColumns(10);
 
@@ -205,9 +200,6 @@ public class AddRequisito extends JFrame {
 		});
 		botonVolver.setBounds(276, 412, 98, 23);
 		contentPane.add(botonVolver);
-
-
-
 
 	}
 }

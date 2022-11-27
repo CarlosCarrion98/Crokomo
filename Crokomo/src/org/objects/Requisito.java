@@ -93,4 +93,8 @@ public class Requisito {
 			this.relaciones.add(relacion);
 		}
 	}
+	
+	public String toString() {
+		return this.nombreRequisito;
+	}
 }

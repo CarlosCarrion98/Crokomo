@@ -21,6 +21,8 @@ import javax.swing.JList;
 import javax.swing.ListSelectionModel;
 import javax.swing.JComboBox;
 import javax.swing.AbstractListModel;
+import javax.swing.ImageIcon;
+
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
@@ -50,6 +52,7 @@ public class ListaProyectosUsuario extends JFrame {
 	 * Create the frame.
 	 */
 	public ListaProyectosUsuario(Usuario u) {
+		setIconImage(new ImageIcon("Assets/icono.png").getImage());
 		UsuarioProyectoDAO updao = new UsuarioProyectoDAO();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -82,9 +85,16 @@ public class ListaProyectosUsuario extends JFrame {
 				login.setVisible(true);
 				dispose();
 			}
+			
 		});
 		botonCerrarSesion.setBounds(608, 11, 116, 23);
 		desktopPane.add(botonCerrarSesion);
+		
+		JLabel labelNombreUsuario = new JLabel(u.getUserName());
+		labelNombreUsuario.setHorizontalAlignment(SwingConstants.CENTER);
+		labelNombreUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		labelNombreUsuario.setBounds(229, 0, 284, 43);
+		desktopPane.add(labelNombreUsuario);
 		
 		JList<Proyecto> list = new JList<Proyecto>();
 		list.setToolTipText("");

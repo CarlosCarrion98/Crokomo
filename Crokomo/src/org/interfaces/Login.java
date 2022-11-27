@@ -55,6 +55,7 @@ public class Login extends JFrame {
 	 * Create the frame.
 	 */
 	public Login() {
+		setIconImage(new ImageIcon("Assets/icono.png").getImage());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 750, 500);
 		contentPane = new JPanel();
@@ -77,7 +78,7 @@ public class Login extends JFrame {
 		contentPane.add(LabelContrasena);
 		
 		LabelIconoLogin = new JLabel("IconoLogin");
-		LabelIconoLogin.setBounds(50, 75, 325, 325);
+		LabelIconoLogin.setBounds(78, 123, 276, 182);
 		contentPane.add(LabelIconoLogin);
 		
 		ImageIcon logo = new ImageIcon("Assets/icono.png");
@@ -102,8 +103,8 @@ public class Login extends JFrame {
 					labelAvisoLogin.setText("Usuario y / o contrasena vacios");
 				else if (!usuarioDAOlogin.login(usuarioLogin).equals("Failed"))
 						{
-					PaginaPrincipal pagPrincipal = new PaginaPrincipal(usuarioLogin);
-					pagPrincipal.setVisible(true);
+					ListaProyectosUsuario misProyectos = new ListaProyectosUsuario(usuarioLogin);
+					misProyectos.setVisible(true);
 					dispose();
 				} else
 				{

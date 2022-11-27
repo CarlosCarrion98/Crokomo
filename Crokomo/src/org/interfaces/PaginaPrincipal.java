@@ -46,6 +46,7 @@ public class PaginaPrincipal extends JFrame {
 	 * Create the frame.
 	 */
 	public PaginaPrincipal(Usuario u) {
+		setIconImage(new ImageIcon("Assets/icono.png").getImage());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 750, 500);
 		contentPane = new JPanel();

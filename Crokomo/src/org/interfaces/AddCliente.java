@@ -3,6 +3,7 @@ package org.interfaces;
 import java.awt.Color;
 import java.awt.Font;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
@@ -50,6 +51,7 @@ public class AddCliente extends JFrame {
 	 * Create the frame.
 	 */
 	public AddCliente(Usuario u, Proyecto p) {
+		setIconImage(new ImageIcon("Assets/icono.png").getImage());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 750, 500);
 		contentPane = new JPanel();

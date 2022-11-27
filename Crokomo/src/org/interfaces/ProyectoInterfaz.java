@@ -8,6 +8,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JTable;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
@@ -65,6 +66,7 @@ public class ProyectoInterfaz extends JFrame {
 	 * Create the frame.
 	 */
 	public ProyectoInterfaz(Usuario u, Proyecto p) {
+		setIconImage(new ImageIcon("Assets/icono.png").getImage());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 750, 500);
 		contentPane = new JPanel();
@@ -200,13 +202,9 @@ public class ProyectoInterfaz extends JFrame {
 		labelEsfuerzo.setBounds(559, 62, 112, 14);
 		contentPane.add(labelEsfuerzo);
 
-		JButton botonOrganizar = new JButton("Planificar");
-		botonOrganizar.setBounds(20, 393, 112, 23);
+		JButton botonOrganizar = new JButton("Mostrar Soluciones");
+		botonOrganizar.setBounds(30, 393, 148, 23);
 		contentPane.add(botonOrganizar);
-
-		JLabel lblNewLabel_1 = new JLabel("Solucion");
-		lblNewLabel_1.setBounds(142, 397, 531, 14);
-		contentPane.add(lblNewLabel_1);
 
 		JButton botonDetalles = new JButton("Detalles");
 		botonDetalles.setBounds(336, 427, 89, 23);
