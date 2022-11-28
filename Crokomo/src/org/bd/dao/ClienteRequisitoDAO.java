@@ -117,7 +117,7 @@ public class ClienteRequisitoDAO extends Conexion {
 	}
 	
 	public ClienteRequisito listarPorClienteYRequisito(Cliente c, Requisito r) {
-		ClienteRequisito cr = new ClienteRequisito(c.getIdCliente(), r.getIdRequisito(), 0);
+		ClienteRequisito cr = null;
 		try {
 			iniciarConexion();
 			PreparedStatement st = connection.prepareStatement("SELECT * FROM CLIENTE_HAS_REQUISITO WHERE Requisito_idRequisito = ? AND Cliente_idCliente = ?");

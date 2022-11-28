@@ -30,7 +30,7 @@ class MochilaTest {
 	void test() {
 		Mochila m = new Mochila();
 		
-		Solucion s = m.mochilaExperimental(requisitos, 10);
+		Solucion s = m.mochilaSolucion(requisitos, 10);
 		
 		assertEquals(2, s.getRequisitos().size());
 		

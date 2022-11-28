@@ -9,27 +9,27 @@ import org.utility.comparator.RequisitoComparator;
 
 public class Mochila {
 
-	private void llenarMochila(ArrayList<Requisito> requisitos, int esfuerzoMaximo){
-		requisitos.sort(new RequisitoComparator());
-		ArrayList<Requisito> requisitosSolucion = new ArrayList<>();
-		ArrayList<Solucion> soluciones = new ArrayList<>();
-		soluciones.add(new Solucion(requisitosSolucion));
-		for(int i = 1; i <= esfuerzoMaximo; i++) {
-			int esfuerzoActual = 0;
-			for(Requisito r : requisitos) {
-				requisitosSolucion = soluciones.get(i-1).getRequisitos();
-				for(Requisito rSolucion : soluciones.get(i-1).getRequisitos()) {
-					esfuerzoActual += rSolucion.getEsfuerzo();
-				}
-				if((r.getEsfuerzo() + esfuerzoActual) < i) {
-					requisitosSolucion.add(r);
-				}
-			}
-		}
-		
-	}
+//	private void llenarMochila(ArrayList<Requisito> requisitos, int esfuerzoMaximo){
+//		requisitos.sort(new RequisitoComparator());
+//		ArrayList<Requisito> requisitosSolucion = new ArrayList<>();
+//		ArrayList<Solucion> soluciones = new ArrayList<>();
+//		soluciones.add(new Solucion(requisitosSolucion));
+//		for(int i = 1; i <= esfuerzoMaximo; i++) {
+//			int esfuerzoActual = 0;
+//			for(Requisito r : requisitos) {
+//				requisitosSolucion = soluciones.get(i-1).getRequisitos();
+//				for(Requisito rSolucion : soluciones.get(i-1).getRequisitos()) {
+//					esfuerzoActual += rSolucion.getEsfuerzo();
+//				}
+//				if((r.getEsfuerzo() + esfuerzoActual) < i) {
+//					requisitosSolucion.add(r);
+//				}
+//			}
+//		}
+//		
+//	}
 	
-	public Solucion mochilaExperimental(ArrayList<Requisito> requisitos, int esfuerzoMaximo) {
+	public Solucion mochilaSolucion(ArrayList<Requisito> requisitos, int esfuerzoMaximo) {
 		int[][] matrizDeSatisfaccion = new int[requisitos.size() + 1][esfuerzoMaximo + 1];
 		Solucion s = null;
 		for (int j = 0; j <= esfuerzoMaximo; j++) {  

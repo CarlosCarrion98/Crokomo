@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.JTable;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -112,7 +114,7 @@ public class ProyectoInterfaz extends JFrame {
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		scrollPane.setBounds(213, 87, 399, 288);
 		contentPane.add(scrollPane);
-		
+
 
 		ClienteDAO cdao = new ClienteDAO();
 		ClienteRequisitoDAO crdao = new ClienteRequisitoDAO();
@@ -132,32 +134,61 @@ public class ProyectoInterfaz extends JFrame {
 			nombresClientes[contador][0] = c.getNombreCliente();
 			valores[contador] = new String[requisitosTabla.size()];
 			for(int i = 0; i < requisitosTabla.size(); i++) {
-				valores[contador][i] = crdao.listarPorClienteYRequisito(c, requisitosTabla.get(i)).toString();
+				ClienteRequisito relacionCargada = crdao.listarPorClienteYRequisito(c, requisitosTabla.get(i));
+				if(relacionCargada != null)
+					valores[contador][i] = relacionCargada.toString();
+				else
+					valores[contador][i] = Integer.toString(0);
 			}
 			contador++;
 		}
-		
+
 		tablaRequisitosUsuarios = new JTable();
 		tablaRequisitosUsuarios.setBorder(null);
 		tablaRequisitosUsuarios.setModel(new DefaultTableModel(valores, nombresRequisitos));
+		tablaRequisitosUsuarios.getModel().addTableModelListener(new TableModelListener() {
+
+			@Override
+			public void tableChanged(TableModelEvent e) {
+				int columnIndex = e.getColumn();
+				int rowIndex = e.getFirstRow();
+				int valorNumerico;
+				String valor = (String) tablaRequisitosUsuarios.getValueAt(rowIndex, columnIndex);
+				try {
+					valorNumerico = Integer.parseInt(valor);
+					String nombreCliente = nombresClientes[rowIndex][0];
+					Cliente c = cdao.obtenerClientePorNombre(nombreCliente);
+					String nombreRequisito = tablaRequisitosUsuarios.getColumnName(columnIndex);
+					Requisito r = rdao.obtenerRequisitoPorNombre(nombreRequisito);
+					ClienteRequisito cr = new ClienteRequisito(c.getIdCliente(), r.getIdRequisito(), valorNumerico);
+					ClienteRequisito crBD = crdao.listarPorClienteYRequisito(c, r);
+					if(crBD == null) crdao.insertar(cr);
+					else crdao.modificar(cr);
+					
+				} catch (NumberFormatException nfe) {
+					valorNumerico = 0;
+				}
+
+			}
+		});
 		scrollPane.setViewportView(tablaRequisitosUsuarios);
 
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setViewportBorder(null);
 		scrollPane_1.setBounds(142, 87, 73, 288);
 		contentPane.add(scrollPane_1);
-		
+
 		nombresClientesTabla = new JTable();
 		nombresClientesTabla.setBorder(null);
 		nombresClientesTabla.setModel(new DefaultTableModel(nombresClientes, new String[]{"Clientes"}));
 		scrollPane_1.setViewportView(nombresClientesTabla);
-//		rowHeaderTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-//		rowHeaderTable.setSize(new Dimension(50, tablaRequisitosUsuarios.getHeight()));
-		
-//		scrollPane.getRowHeader().setSize(new Dimension(50, tablaRequisitosUsuarios.getHeight()));
-//		scrollPane.getViewport().setLocation(50, 0);
-		
-		
+		//		rowHeaderTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		//		rowHeaderTable.setSize(new Dimension(50, tablaRequisitosUsuarios.getHeight()));
+
+		//		scrollPane.getRowHeader().setSize(new Dimension(50, tablaRequisitosUsuarios.getHeight()));
+		//		scrollPane.getViewport().setLocation(50, 0);
+
+
 		textFieldEsfuerzo = new JTextField();
 		textFieldEsfuerzo.setHorizontalAlignment(SwingConstants.RIGHT);
 		textFieldEsfuerzo.setText("15");
@@ -202,29 +233,38 @@ public class ProyectoInterfaz extends JFrame {
 		labelEsfuerzo.setBounds(559, 62, 112, 14);
 		contentPane.add(labelEsfuerzo);
 
-		JButton botonOrganizar = new JButton("Mostrar Soluciones");
-		botonOrganizar.setBounds(30, 393, 148, 23);
-		contentPane.add(botonOrganizar);
+		JButton botonSoluciones = new JButton("Mostrar Soluciones");
+		botonSoluciones.setBounds(30, 393, 148, 23);
+		botonSoluciones.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				SolucionesInterfaz soluciones = new SolucionesInterfaz(u, p, Integer.parseInt(textFieldEsfuerzo.getText()));
+				soluciones.setVisible(true);
+				dispose();
+			}
+		});
+		contentPane.add(botonSoluciones);
 
 		JButton botonDetalles = new JButton("Detalles");
 		botonDetalles.setBounds(336, 427, 89, 23);
 		contentPane.add(botonDetalles);
-		
-		
+
+
 	}
-	
+
 	public void resizeColumnWidth(JTable table) {
-	    final TableColumnModel columnModel = table.getColumnModel();
-	    for (int column = 0; column < table.getColumnCount(); column++) {
-	        int width = 15; // Min width
-	        for (int row = 0; row < table.getRowCount(); row++) {
-	            TableCellRenderer renderer = table.getCellRenderer(row, column);
-	            Component comp = table.prepareRenderer(renderer, row, column);
-	            width = Math.max(comp.getPreferredSize().width +1 , width);
-	        }
-	        if(width > 300)
-	            width=300;
-	        columnModel.getColumn(column).setPreferredWidth(width);
-	    }
+		final TableColumnModel columnModel = table.getColumnModel();
+		for (int column = 0; column < table.getColumnCount(); column++) {
+			int width = 15; // Min width
+			for (int row = 0; row < table.getRowCount(); row++) {
+				TableCellRenderer renderer = table.getCellRenderer(row, column);
+				Component comp = table.prepareRenderer(renderer, row, column);
+				width = Math.max(comp.getPreferredSize().width +1 , width);
+			}
+			if(width > 300)
+				width=300;
+			columnModel.getColumn(column).setPreferredWidth(width);
+		}
 	}
 }

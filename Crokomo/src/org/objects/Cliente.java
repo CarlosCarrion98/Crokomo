@@ -74,9 +74,15 @@ public class Cliente {
 //		this.relaciones = relaciones;
 //	}
 
-	public boolean equals(Cliente c) {
-		if(this.idCliente != c.idCliente)
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
 			return false;
-		return true;
+		if (getClass() != obj.getClass())
+			return false;
+		Cliente other = (Cliente) obj;
+		return idCliente == other.idCliente;
 	}
 }

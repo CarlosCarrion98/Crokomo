@@ -40,6 +40,15 @@ public class Formulas {
 		return (double)(c.getPeso() * cr.getValor()) / r.getSatisfaccion();
 	}
 	
+	public static int satisfaccionSolucion(ArrayList<Requisito> requisitos) {
+		int sumaSatisfaccion = 0;
+		for(Requisito r : requisitos) {
+			sumaSatisfaccion += r.getSatisfaccion();
+		}
+		return sumaSatisfaccion;
+		
+	}
+	
 	public static double productividadSolucion(Solucion s) {
 		double productividadSolucion = 0;
 		for(Requisito r : s.getRequisitos()) {
