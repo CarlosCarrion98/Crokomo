@@ -54,7 +54,7 @@ public class ListaProyectosAdmin extends JFrame {
 		ProyectoDAO pdao = new ProyectoDAO();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 750, 500);
+		setBounds(0, 0, 1920, 950);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -62,21 +62,24 @@ public class ListaProyectosAdmin extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel tituloListaProyectos = new JLabel("Lista de proyectos");
-		tituloListaProyectos.setBounds(304, 77, 111, 14);
+		tituloListaProyectos.setBounds(660, 91, 250, 30);
 		tituloListaProyectos.setHorizontalAlignment(SwingConstants.CENTER);
+		tituloListaProyectos.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		contentPane.add(tituloListaProyectos);
 		
 		JDesktopPane desktopPane = new JDesktopPane();
-		desktopPane.setBounds(0, 0, 734, 43);
+		desktopPane.setBounds(0, 0, 1920, 60);
 		desktopPane.setBackground(Color.LIGHT_GRAY);
 		contentPane.add(desktopPane);
 		
 		JButton botonProyectos = new JButton("Mis Proyectos");
-		botonProyectos.setBounds(32, 11, 133, 23);
+		botonProyectos.setBounds(32, 11, 250, 40);
+		botonProyectos.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		botonProyectos.setEnabled(false);
 		desktopPane.add(botonProyectos);
 		
 		JButton botonCerrarSesion = new JButton("Cerrar Sesion");
+		botonCerrarSesion.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		botonCerrarSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Login login = new Login();
@@ -85,23 +88,24 @@ public class ListaProyectosAdmin extends JFrame {
 			}
 			
 		});
-		botonCerrarSesion.setBounds(608, 11, 116, 23);
+		botonCerrarSesion.setBounds(1260, 11, 250, 40);
 		desktopPane.add(botonCerrarSesion);
 		
 		JLabel labelNombreUsuario = new JLabel("Hola " + u.getUserName());
 		labelNombreUsuario.setHorizontalAlignment(SwingConstants.CENTER);
 		labelNombreUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		labelNombreUsuario.setBounds(229, 0, 284, 43);
+		labelNombreUsuario.setBounds(721, 25, 100, 25);
 		desktopPane.add(labelNombreUsuario);
 		
 		JList<Proyecto> list = new JList<Proyecto>();
 		list.setToolTipText("");
+		list.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		list.setBounds(249, 383, 245, -193);
+		list.setBounds(411, 176, 245, -193);
 		contentPane.add(list);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(167, 151, 378, 184);
+		scrollPane.setBounds(600, 151, 400, 500);
 		contentPane.add(scrollPane);
 		
 		JLabel labelAviso = new JLabel("");
@@ -148,7 +152,7 @@ public class ListaProyectosAdmin extends JFrame {
 				}
 			}
 		});
-		botonSeleccionarProyecto.setBounds(304, 365, 121, 23);
+		botonSeleccionarProyecto.setBounds(650, 700, 250, 40);
 		contentPane.add(botonSeleccionarProyecto);
 
 	}

@@ -76,6 +76,7 @@ public class ListaProyectosUsuario extends JFrame {
 		
 		JButton botonProyectos = new JButton("Mis Proyectos");
 		botonProyectos.setBounds(32, 11, 250, 40);
+		botonProyectos.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		botonProyectos.setEnabled(false);
 		desktopPane.add(botonProyectos);
 		
