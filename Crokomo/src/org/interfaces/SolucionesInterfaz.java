@@ -62,7 +62,7 @@ public class SolucionesInterfaz extends JFrame {
 	public SolucionesInterfaz(Usuario u, Proyecto p, int esfuerzoMaximo) {
 		setIconImage(new ImageIcon("Assets/icono.png").getImage());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 750, 500);
+		setBounds(100, 100, 1920, 950);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -70,10 +70,12 @@ public class SolucionesInterfaz extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel labelTitulo = new JLabel("Soluciones");
-		labelTitulo.setBounds(317, 79, 159, 13);
+		labelTitulo.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		labelTitulo.setBounds(685, 80, 159, 30);
 		contentPane.add(labelTitulo);
 		
 		JButton botonVolver = new JButton("Volver al proyecto");
+		botonVolver.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		botonVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 					ProyectoInterfaz proyectoInterfaz = new ProyectoInterfaz(u, p);
@@ -81,11 +83,11 @@ public class SolucionesInterfaz extends JFrame {
 					dispose();
 			}
 		});
-		botonVolver.setBounds(287, 388, 139, 21);
+		botonVolver.setBounds(638, 734, 250, 40);
 		contentPane.add(botonVolver);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(176, 102, 372, 276);
+		scrollPane.setBounds(453, 120, 600, 600);
 		contentPane.add(scrollPane);
 		String[] nombresTabla = {
 				"Soluciones", "Requisitos", "Satisfacci\u00F3n"
@@ -140,10 +142,11 @@ public class SolucionesInterfaz extends JFrame {
 		
 		JDesktopPane desktopPane = new JDesktopPane();
 		desktopPane.setBackground(Color.LIGHT_GRAY);
-		desktopPane.setBounds(0, 0, 750, 43);
+		desktopPane.setBounds(0, 0, 1920, 60);
 		contentPane.add(desktopPane);
 		
 		JButton botonProyectos = new JButton("Mis Proyectos");
+		botonProyectos.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		botonProyectos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ListaProyectosUsuario listaproyectos = new ListaProyectosUsuario(u);
@@ -151,10 +154,11 @@ public class SolucionesInterfaz extends JFrame {
 				dispose();
 			}
 		});
-		botonProyectos.setBounds(32, 11, 133, 23);
+		botonProyectos.setBounds(34, 11, 250, 40);
 		desktopPane.add(botonProyectos);
 		
 		JButton botonCerrarSesion = new JButton("Cerrar Sesion");
+		botonCerrarSesion.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		botonCerrarSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Login login = new Login();
@@ -162,13 +166,7 @@ public class SolucionesInterfaz extends JFrame {
 				dispose();
 			}
 		});
-		botonCerrarSesion.setBounds(608, 11, 116, 23);
+		botonCerrarSesion.setBounds(1638, 11, 250, 40);
 		desktopPane.add(botonCerrarSesion);
-		
-		JLabel labelNombreProyecto = new JLabel((String) null);
-		labelNombreProyecto.setHorizontalAlignment(SwingConstants.CENTER);
-		labelNombreProyecto.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		labelNombreProyecto.setBounds(229, 0, 284, 43);
-		desktopPane.add(labelNombreProyecto);
 	}
 }
