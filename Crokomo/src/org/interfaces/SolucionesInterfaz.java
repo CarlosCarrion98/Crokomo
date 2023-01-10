@@ -91,15 +91,21 @@ public class SolucionesInterfaz extends JFrame {
 				"Soluciones", "Requisitos", "Satisfacci\u00F3n"
 		};
 		ArrayList<Solucion> soluciones = new ArrayList<>();
+		ArrayList<Requisito> auxiliares = new ArrayList<>();
 		RequisitoDAO rdao = new RequisitoDAO();
 		ClienteRequisitoDAO crdao = new ClienteRequisitoDAO();
 		ClienteDAO cdao = new ClienteDAO();
 		ArrayList<Requisito> requisitosProyecto = rdao.listarPorProyecto(p);
 		ArrayList<Cliente> clientesProyecto = cdao.listarPorProyecto(p);
  		for(Requisito r : requisitosProyecto) {
+ 			if(r.getEsfuerzo() > esfuerzoMaximo) {
+ 				auxiliares.add(r);
+ 			}
  			r.setRelaciones(crdao.listarPorRequisito(r));
 			Formulas.calcularSatisfaccion(r, clientesProyecto);
 		}
+ 		for(Requisito r : auxiliares)
+ 			requisitosProyecto.remove(r);
 		Solucion temp;
 		while(requisitosProyecto.size() != 0) {
 			temp = new Mochila().mochilaSolucion(requisitosProyecto, esfuerzoMaximo);

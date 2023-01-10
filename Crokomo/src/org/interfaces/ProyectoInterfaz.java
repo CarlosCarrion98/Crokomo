@@ -123,15 +123,20 @@ public class ProyectoInterfaz extends JFrame {
 		ArrayList<Cliente> clientesProyecto = cdao.listarPorProyecto(p);
 		String[][] valores = new String[clientesProyecto.size()][];
 		String[][] nombresClientes = new String[clientesProyecto.size()][];
+		String[][] nombresCliDisplay = new String[clientesProyecto.size()][];
 		ArrayList<Requisito> requisitosTabla = new ArrayList<>(rdao.listarPorProyecto(p));
 		String[] nombresRequisitos = new String[requisitosTabla.size()];
+		String[] nombresRequisitosDis = new String[requisitosTabla.size()];
 		for(int i = 0; i < requisitosTabla.size(); i++) {
 			nombresRequisitos[i] = requisitosTabla.get(i).getNombreRequisito();
+			nombresRequisitosDis[i] = requisitosTabla.get(i).getNombreRequisito() + " (" + requisitosTabla.get(i).getEsfuerzo() + ")";
 		}
 
 		for(Cliente c : clientesProyecto) {
 			nombresClientes[contador] = new String[1];
+			nombresCliDisplay[contador] = new String[1];
 			nombresClientes[contador][0] = c.getNombreCliente();
+			nombresCliDisplay[contador][0] = c.getNombreCliente() + " (" + c.getPeso() + ")";
 			valores[contador] = new String[requisitosTabla.size()];
 			for(int i = 0; i < requisitosTabla.size(); i++) {
 				ClienteRequisito relacionCargada = crdao.listarPorClienteYRequisito(c, requisitosTabla.get(i));
@@ -145,7 +150,7 @@ public class ProyectoInterfaz extends JFrame {
 
 		tablaRequisitosUsuarios = new JTable();
 		tablaRequisitosUsuarios.setBorder(null);
-		tablaRequisitosUsuarios.setModel(new DefaultTableModel(valores, nombresRequisitos));
+		tablaRequisitosUsuarios.setModel(new DefaultTableModel(valores, nombresRequisitosDis));
 		tablaRequisitosUsuarios.getModel().addTableModelListener(new TableModelListener() {
 
 			@Override
@@ -158,7 +163,7 @@ public class ProyectoInterfaz extends JFrame {
 					valorNumerico = Integer.parseInt(valor);
 					String nombreCliente = nombresClientes[rowIndex][0];
 					Cliente c = cdao.obtenerClientePorNombre(nombreCliente);
-					String nombreRequisito = tablaRequisitosUsuarios.getColumnName(columnIndex);
+					String nombreRequisito = nombresRequisitos[columnIndex];
 					Requisito r = rdao.obtenerRequisitoPorNombre(nombreRequisito);
 					ClienteRequisito cr = new ClienteRequisito(c.getIdCliente(), r.getIdRequisito(), valorNumerico);
 					ClienteRequisito crBD = crdao.listarPorClienteYRequisito(c, r);
@@ -180,7 +185,7 @@ public class ProyectoInterfaz extends JFrame {
 
 		nombresClientesTabla = new JTable();
 		nombresClientesTabla.setBorder(null);
-		nombresClientesTabla.setModel(new DefaultTableModel(nombresClientes, new String[]{"Clientes"}));
+		nombresClientesTabla.setModel(new DefaultTableModel(nombresCliDisplay, new String[]{"Clientes"}));
 		scrollPane_1.setViewportView(nombresClientesTabla);
 		//		rowHeaderTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		//		rowHeaderTable.setSize(new Dimension(50, tablaRequisitosUsuarios.getHeight()));
@@ -239,9 +244,14 @@ public class ProyectoInterfaz extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				SolucionesInterfaz soluciones = new SolucionesInterfaz(u, p, Integer.parseInt(textFieldEsfuerzo.getText()));
-				soluciones.setVisible(true);
-				dispose();
+				try {
+					SolucionesInterfaz soluciones = new SolucionesInterfaz(u, p, Integer.parseInt(textFieldEsfuerzo.getText()));
+					soluciones.setVisible(true);
+					dispose();
+				} catch (NumberFormatException nfe) {
+					
+				}
+				
 			}
 		});
 		contentPane.add(botonSoluciones);
