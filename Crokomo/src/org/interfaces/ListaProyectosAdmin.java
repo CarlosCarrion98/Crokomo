@@ -1,12 +1,11 @@
 package org.interfaces;
 
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import org.bd.dao.UsuarioProyectoDAO;
+import org.bd.dao.ProyectoDAO;
 import org.objects.Proyecto;
 import org.objects.Usuario;
 
@@ -16,10 +15,8 @@ import javax.swing.JDesktopPane;
 import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
-import javax.swing.JLayeredPane;
 import javax.swing.JList;
 import javax.swing.ListSelectionModel;
-import javax.swing.JComboBox;
 import javax.swing.AbstractListModel;
 import javax.swing.ImageIcon;
 
@@ -30,6 +27,7 @@ import java.awt.Font;
 
 public class ListaProyectosAdmin extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
 	/**
@@ -53,7 +51,7 @@ public class ListaProyectosAdmin extends JFrame {
 	 */
 	public ListaProyectosAdmin(Usuario u) {
 		setIconImage(new ImageIcon("Assets/icono.png").getImage());
-		UsuarioProyectoDAO updao = new UsuarioProyectoDAO();
+		ProyectoDAO pdao = new ProyectoDAO();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 750, 500);
@@ -90,7 +88,7 @@ public class ListaProyectosAdmin extends JFrame {
 		botonCerrarSesion.setBounds(608, 11, 116, 23);
 		desktopPane.add(botonCerrarSesion);
 		
-		JLabel labelNombreUsuario = new JLabel("Hola administrado chan");
+		JLabel labelNombreUsuario = new JLabel("Hola " + u.getUserName());
 		labelNombreUsuario.setHorizontalAlignment(SwingConstants.CENTER);
 		labelNombreUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		labelNombreUsuario.setBounds(229, 0, 284, 43);
@@ -112,7 +110,7 @@ public class ListaProyectosAdmin extends JFrame {
 		labelAviso.setBounds(225, 410, 269, 14);
 		contentPane.add(labelAviso);
 		
-		ArrayList<Proyecto> proyectos = new ArrayList<Proyecto>(updao.listarProyectosPorUsuario(u));
+		ArrayList<Proyecto> proyectos = new ArrayList<Proyecto>(pdao.listar());
 		Proyecto[] proyectosPrimitivos = new Proyecto[proyectos.size()];
 		for(int i = 0; i < proyectosPrimitivos.length; i++) {
 			proyectosPrimitivos[i] = proyectos.get(i);
