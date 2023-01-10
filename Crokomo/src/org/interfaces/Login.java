@@ -19,6 +19,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import javax.swing.JPasswordField;
+import java.awt.Font;
 
 public class Login extends JFrame {
 
@@ -57,28 +58,32 @@ public class Login extends JFrame {
 	public Login() {
 		setIconImage(new ImageIcon("Assets/icono.png").getImage());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 750, 500);
+		setBounds(0, 0, 1920, 950);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(255, 255, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		textFieldUsuario = new JTextField();
-		textFieldUsuario.setBounds(400, 145, 240, 20);
+		textFieldUsuario.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		textFieldUsuario.setBounds(550, 565, 450, 40);
 		contentPane.add(textFieldUsuario);
 		textFieldUsuario.setColumns(10);
 		
 		JLabel LabelUsuario = new JLabel("Usuario");
-		LabelUsuario.setBounds(400, 120, 121, 14);
+		LabelUsuario.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		LabelUsuario.setBounds(718, 515, 120, 30);
 		contentPane.add(LabelUsuario);
 		
 		LabelContrasena = new JLabel("Contrasena");
-		LabelContrasena.setBounds(400, 208, 121, 14);
+		LabelContrasena.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		LabelContrasena.setBounds(718, 640, 120, 30);
 		contentPane.add(LabelContrasena);
 		
 		LabelIconoLogin = new JLabel("IconoLogin");
-		LabelIconoLogin.setBounds(78, 123, 276, 182);
+		LabelIconoLogin.setBounds(560, 35, 432, 436);
 		contentPane.add(LabelIconoLogin);
 		
 		ImageIcon logo = new ImageIcon("Assets/icono.png");
@@ -91,10 +96,12 @@ public class Login extends JFrame {
 		contentPane.add(labelAvisoLogin);
 		
 		textFieldContrasena = new JPasswordField();
-		textFieldContrasena.setBounds(400, 233, 240, 20);
+		textFieldContrasena.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		textFieldContrasena.setBounds(550, 685, 450, 40);
 		contentPane.add(textFieldContrasena);
 		
 		BotonLogin = new JButton("Iniciar Sesion");
+		BotonLogin.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		BotonLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String password = String.valueOf(textFieldContrasena.getPassword());
@@ -117,7 +124,7 @@ public class Login extends JFrame {
 				}
 			}
 		});
-		BotonLogin.setBounds(457, 279, 121, 23);
+		BotonLogin.setBounds(650, 740, 250, 40);
 		contentPane.add(BotonLogin);
 	
 	}

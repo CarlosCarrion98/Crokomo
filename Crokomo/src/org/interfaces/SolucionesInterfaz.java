@@ -62,7 +62,7 @@ public class SolucionesInterfaz extends JFrame {
 	public SolucionesInterfaz(Usuario u, Proyecto p, int esfuerzoMaximo) {
 		setIconImage(new ImageIcon("Assets/icono.png").getImage());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1920, 950);
+		setBounds(0, 0, 1920, 950);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -83,11 +83,11 @@ public class SolucionesInterfaz extends JFrame {
 					dispose();
 			}
 		});
-		botonVolver.setBounds(638, 734, 250, 40);
+		botonVolver.setBounds(650, 740, 250, 40);
 		contentPane.add(botonVolver);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(453, 120, 600, 600);
+		scrollPane.setBounds(450, 120, 600, 600);
 		contentPane.add(scrollPane);
 		String[] nombresTabla = {
 				"Soluciones", "Requisitos", "Satisfacci\u00F3n"
@@ -132,11 +132,13 @@ public class SolucionesInterfaz extends JFrame {
 		}
 		
 		table = new JTable();
+		table.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		table.setModel(new DefaultTableModel(contenidoTabla, nombresTabla));
 		
 		table.setAlignmentX(JTable.CENTER_ALIGNMENT);
 		table.setAlignmentY(JTable.CENTER_ALIGNMENT);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		table.setRowHeight(30);
 		table.getColumn("Requisitos").setMinWidth(200);
 		scrollPane.setViewportView(table);
 		

@@ -70,7 +70,7 @@ public class ProyectoInterfaz extends JFrame {
 	public ProyectoInterfaz(Usuario u, Proyecto p) {
 		setIconImage(new ImageIcon("Assets/icono.png").getImage());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1920, 950);
+		setBounds(0, 0, 1920, 950);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -80,7 +80,7 @@ public class ProyectoInterfaz extends JFrame {
 		JLabel Requisitos = new JLabel("Requisitos");
 		Requisitos.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		Requisitos.setHorizontalAlignment(SwingConstants.CENTER);
-		Requisitos.setBounds(719, 91, 100, 25);
+		Requisitos.setBounds(721, 91, 100, 25);
 		contentPane.add(Requisitos);
 
 		JLabel lblNewLabel = new JLabel("Clientes");
@@ -110,7 +110,7 @@ public class ProyectoInterfaz extends JFrame {
 				dispose();
 			}
 		});
-		addRequisito.setBounds(648, 126, 250, 40);
+		addRequisito.setBounds(650, 120, 250, 40);
 		contentPane.add(addRequisito);
 
 		JScrollPane scrollPane = new JScrollPane();
@@ -246,7 +246,7 @@ public class ProyectoInterfaz extends JFrame {
 
 		JButton botonSoluciones = new JButton("Mostrar Soluciones");
 		botonSoluciones.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		botonSoluciones.setBounds(648, 752, 250, 40);
+		botonSoluciones.setBounds(650, 750, 250, 40);
 		botonSoluciones.addActionListener(new ActionListener() {
 
 			@Override
