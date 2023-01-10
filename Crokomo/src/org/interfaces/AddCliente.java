@@ -53,7 +53,7 @@ public class AddCliente extends JFrame {
 	public AddCliente(Usuario u, Proyecto p) {
 		setIconImage(new ImageIcon("Assets/icono.png").getImage());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 750, 500);
+		setBounds(0,0, 1920, 950);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -62,43 +62,48 @@ public class AddCliente extends JFrame {
 		
 		JDesktopPane desktopPane = new JDesktopPane();
 		desktopPane.setBackground(Color.LIGHT_GRAY);
-		desktopPane.setBounds(0, 0, 734, 43);
+		desktopPane.setBounds(0, 0, 1920, 60);
 		contentPane.add(desktopPane);
 		
 		JLabel labelAddCliente = new JLabel("Añadir Cliente");
-		labelAddCliente.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		labelAddCliente.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		labelAddCliente.setHorizontalAlignment(SwingConstants.CENTER);
-		labelAddCliente.setBounds(259, 0, 284, 43);
+		labelAddCliente.setBounds(620, 0, 284, 60);
 		desktopPane.add(labelAddCliente);
 		
 		JLabel labelNombreCliente = new JLabel("Nombre de cliente");
+		labelNombreCliente.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		labelNombreCliente.setHorizontalAlignment(SwingConstants.CENTER);
-		labelNombreCliente.setBounds(346, 148, 116, 14);
+		labelNombreCliente.setBounds(645, 200, 244, 30);
 		contentPane.add(labelNombreCliente);
 		
 		txtNombreCliente = new JTextField();
-		txtNombreCliente.setBounds(276, 173, 255, 20);
+		txtNombreCliente.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		txtNombreCliente.setBounds(620, 240, 300, 30);
 		contentPane.add(txtNombreCliente);
 		txtNombreCliente.setColumns(10);
 		
 		JLabel labelPeso = new JLabel("Peso");
+		labelPeso.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		labelPeso.setHorizontalAlignment(SwingConstants.CENTER);
-		labelPeso.setBounds(346, 242, 116, 14);
+		labelPeso.setBounds(695, 300, 143, 30);
 		contentPane.add(labelPeso);
 		
 		txtPeso = new JTextField();
-		txtPeso.setBounds(276, 267, 255, 20);
+		txtPeso.setBounds(620, 340, 300, 30);
 		contentPane.add(txtPeso);
 		txtPeso.setColumns(10);
 		
 		JLabel lblErrorVacio = new JLabel("Nombre y/o peso vacío");
+		lblErrorVacio.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblErrorVacio.setHorizontalAlignment(SwingConstants.CENTER);
 		lblErrorVacio.setForeground(Color.RED);
-		lblErrorVacio.setBounds(335, 297, 137, 13);
+		lblErrorVacio.setBounds(620, 400, 300, 30);
 		lblErrorVacio.setVisible(false);
 		contentPane.add(lblErrorVacio);
 		
 		JButton botonAddCliente = new JButton("Añadir");
+		botonAddCliente.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		botonAddCliente.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -116,10 +121,11 @@ public class AddCliente extends JFrame {
 				
 			}
 		});
-		botonAddCliente.setBounds(433, 341, 98, 23);
+		botonAddCliente.setBounds(870, 500, 250, 40);
 		contentPane.add(botonAddCliente);
 		
 		JButton botonVolver = new JButton("Volver");
+		botonVolver.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		botonVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ProyectoInterfaz proyecto = new ProyectoInterfaz(u, p);
@@ -127,7 +133,7 @@ public class AddCliente extends JFrame {
 				dispose();
 			}
 		});
-		botonVolver.setBounds(276, 341, 98, 23);
+		botonVolver.setBounds(420, 500, 250, 40);
 		contentPane.add(botonVolver);
 		
 		

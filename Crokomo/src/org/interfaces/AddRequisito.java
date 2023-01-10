@@ -62,7 +62,7 @@ public class AddRequisito extends JFrame {
 	public AddRequisito(Usuario u, Proyecto p) {
 		setIconImage(new ImageIcon("Assets/icono.png").getImage());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 750, 500);
+		setBounds(0, 0, 1920, 950);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -71,51 +71,55 @@ public class AddRequisito extends JFrame {
 
 		JDesktopPane desktopPane = new JDesktopPane();
 		desktopPane.setBackground(Color.LIGHT_GRAY);
-		desktopPane.setBounds(0, 0, 734, 43);
+		desktopPane.setBounds(0, 0, 1920, 60);
 		contentPane.add(desktopPane);
 
 		JLabel labelAddRequisito = new JLabel("Añadir Requisito");
-		labelAddRequisito.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		labelAddRequisito.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		labelAddRequisito.setHorizontalAlignment(SwingConstants.CENTER);
-		labelAddRequisito.setBounds(259, 0, 284, 43);
+		labelAddRequisito.setBounds(650, 10, 284, 43);
 		desktopPane.add(labelAddRequisito);
 
 		JLabel lblNewLabel_1 = new JLabel("Nombre de requisito");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setBounds(346, 53, 116, 14);
+		lblNewLabel_1.setBounds(675, 200, 250, 30);
 		contentPane.add(lblNewLabel_1);
 
 		txtNombreReq = new JTextField();
-		txtNombreReq.setBounds(276, 78, 255, 20);
+		txtNombreReq.setBounds(650, 240, 300, 30);
 		contentPane.add(txtNombreReq);
 		txtNombreReq.setColumns(10);
 
 		JLabel lblNewLabel_2 = new JLabel("Esfuerzo");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2.setBounds(346, 147, 116, 14);
+		lblNewLabel_2.setBounds(675, 315, 250, 30);
 		contentPane.add(lblNewLabel_2);
 
 		txtEsfuerzo = new JTextField();
-		txtEsfuerzo.setBounds(276, 172, 255, 20);
+		txtEsfuerzo.setBounds(650, 355, 300, 30);
 		contentPane.add(txtEsfuerzo);
 		txtEsfuerzo.setColumns(10);
 
 		JLabel lblVacio = new JLabel("Nombre y/o Esfuerzo no pueden estar vacíos");
+		lblVacio.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblVacio.setHorizontalAlignment(SwingConstants.CENTER);
 		lblVacio.setForeground(Color.RED);
-		lblVacio.setBounds(276, 202, 255, 14);
+		lblVacio.setBounds(571, 415, 464, 30);
 		contentPane.add(lblVacio);
 
 		JLabel lblErrorNumerico = new JLabel("Esfuerzo debe ser un valor numérico");
+		lblErrorNumerico.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblErrorNumerico.setHorizontalAlignment(SwingConstants.CENTER);
 		lblErrorNumerico.setForeground(Color.RED);
-		lblErrorNumerico.setBounds(276, 202, 241, 13);
+		lblErrorNumerico.setBounds(597, 415, 425, 30);
 		contentPane.add(lblErrorNumerico);
 		lblVacio.setVisible(false);
 		lblErrorNumerico.setVisible(false);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(276, 251, 255, 0);
+		scrollPane.setBounds(91, 200, 255, 0);
 		contentPane.add(scrollPane);
 
 		JPanel panel = new JPanel();
@@ -132,7 +136,6 @@ public class AddRequisito extends JFrame {
 			textField.setEnabled(false);
 			textFields.add(textField);
 			checkBoxCliente.addActionListener(new ActionListener() {
-
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					if(textFields.get(checkBoxes.lastIndexOf(checkBoxCliente)).isEnabled())
@@ -146,13 +149,14 @@ public class AddRequisito extends JFrame {
 			});
 			panel.add(checkBoxCliente);
 			panel.add(textField);
-			if(scrollPane.getHeight() < 150) {
-				scrollPane.setBounds(scrollPane.getX(), scrollPane.getY(), scrollPane.getWidth(), scrollPane.getHeight() + 25);
+			if(scrollPane.getHeight() < 240) {
+				scrollPane.setBounds(scrollPane.getX(), scrollPane.getY(), scrollPane.getWidth(), scrollPane.getHeight() + 30);
 			}
 		}
 
 		JButton botonAddReq = new JButton("Añadir");
-		botonAddReq.setBounds(433, 412, 98, 23);
+		botonAddReq.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		botonAddReq.setBounds(900, 500, 250, 40);
 		contentPane.add(botonAddReq);
 		botonAddReq.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -191,6 +195,7 @@ public class AddRequisito extends JFrame {
 		textField.setColumns(10);
 
 		JButton botonVolver = new JButton("Volver");
+		botonVolver.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		botonVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ProyectoInterfaz proyecto = new ProyectoInterfaz(u, p);
@@ -198,7 +203,7 @@ public class AddRequisito extends JFrame {
 				dispose();
 			}
 		});
-		botonVolver.setBounds(276, 412, 98, 23);
+		botonVolver.setBounds(450, 500, 250, 40);
 		contentPane.add(botonVolver);
 
 	}
