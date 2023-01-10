@@ -82,4 +82,26 @@ public class UsuarioProyectoDAO extends Conexion{
 		}
 		return proyectosUsuario;
 	}
+	
+	public boolean existeRelacion(Proyecto p, Usuario u) {
+		UsuarioProyecto temp = null;
+		try {
+			iniciarConexion();
+			PreparedStatement st = connection.prepareStatement("SELECT pu.idProyecto, pu.nombreUsuario"
+					+ " FROM Proyecto_has_usuario pu"
+					+ " WHERE pu.idProyecto = ? AND pu.nombreUsuario = ?");
+			st.setInt(1, p.getIdProyecto());
+			st.setString(2, u.getUserName());
+			ResultSet rs = st.executeQuery();
+			while(rs.next()) {
+				temp = new UsuarioProyecto(rs.getInt(1), rs.getString(2));
+			} 
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			cerrarConexion();
+		}
+		
+		return temp == null ? false : true;
+	}
 }

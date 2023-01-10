@@ -91,6 +91,7 @@ public class AddEditProyecto extends JFrame {
 
 		txtNombrePro = new JTextField();
 		txtNombrePro.setBounds(276, 137, 255, 20);
+		if(p != null) txtNombrePro.setText(p.getNombreProyecto());
 		contentPane.add(txtNombrePro);
 		txtNombrePro.setColumns(10);
 
@@ -114,11 +115,15 @@ public class AddEditProyecto extends JFrame {
 		scrollPane.setViewportView(panel);
 		panel.setLayout(new GridLayout(0, 1, 0, 0));
 		UsuarioDAO udao = new UsuarioDAO();
+		UsuarioProyectoDAO updao = new UsuarioProyectoDAO();
 		ArrayList<JCheckBox> checkBoxes = new ArrayList<>();
 		for(Usuario user : udao.listar()) {
 			JCheckBox checkBoxUsuario = new JCheckBox(user.getUserName());
+			if(updao.existeRelacion(p, user)) {
+				checkBoxUsuario.setSelected(true);
+			}
 			checkBoxes.add(checkBoxUsuario);
-
+			
 			
 			panel.add(checkBoxUsuario);
 			if(scrollPane.getHeight() < 150) {
@@ -141,13 +146,31 @@ public class AddEditProyecto extends JFrame {
 				if(!txtNombrePro.getText().isBlank()) {
 					ProyectoDAO pdao = new ProyectoDAO();
 					if(p != null) {
-						
+						if(p.getNombreProyecto() != txtNombrePro.getText()) {
+							p.setNombreProyecto(txtNombrePro.getText());
+							pdao.modificar(p);
+						}
+						for(JCheckBox jcb : checkBoxes) {
+							if(jcb.isSelected()) {
+								Usuario user = udao.obtenerUsuarioPorNombre(jcb.getText());
+								if(jcb.getText().equals(user.getUserName()))
+									updao.insertar(new UsuarioProyecto(p.getIdProyecto(), user.getUserName()));
+
+							} else {
+								if(updao.existeRelacion(p, udao.obtenerUsuarioPorNombre(jcb.getText()))) {
+									updao.eliminar(new UsuarioProyecto(p.getIdProyecto(), jcb.getText()));
+								}
+								
+							}
+						}
+						ListaProyectosAdmin listaProyectosAdmin = new ListaProyectosAdmin(u);
+						listaProyectosAdmin.setVisible(true);
+						dispose();
 					} else {
 						Proyecto ptemp = pdao.obtenerProyectoPorNombre(txtNombrePro.getText());
 						if(ptemp == null) {
 							pdao.insertar(new Proyecto(0, txtNombrePro.getText(), null));
 							Proyecto temp = pdao.obtenerProyectoPorNombre(txtNombrePro.getText());
-							UsuarioProyectoDAO updao = new UsuarioProyectoDAO();
 							for(JCheckBox jcb : checkBoxes) {
 								if(jcb.isSelected()) {
 									Usuario user = udao.obtenerUsuarioPorNombre(jcb.getText());

@@ -24,6 +24,23 @@ public class ProyectoDAO extends Conexion {
 		}
 	}
 	
+	public void modificar(Proyecto p) {
+		try {
+			iniciarConexion();
+			PreparedStatement st = connection.prepareStatement("UPDATE PROYECTO SET idProyecto = ?, nombreProyecto = ? where idProyecto = ?");
+			st.setInt(1, p.getIdProyecto());
+			st.setString(2, p.getNombreProyecto());
+			st.setInt(3, p.getIdProyecto());
+			st.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (NullPointerException npe) {
+			System.out.println("Operación cancelada. Proyecto es nulo.");
+		} finally {
+			cerrarConexion();
+		}
+	}
+	
 	public void eliminar(Proyecto p) {
 		try {
 			iniciarConexion();
