@@ -14,9 +14,8 @@ public class ProyectoDAO extends Conexion {
 	public void insertar(Proyecto p) {
 		try {
 			iniciarConexion();
-			PreparedStatement st = connection.prepareStatement("INSERT INTO PROYECTO VALUES(?, ?)");
-			st.setInt(1, p.getIdProyecto());
-			st.setString(2, p.getNombreProyecto());
+			PreparedStatement st = connection.prepareStatement("INSERT INTO PROYECTO VALUES(null, ?)");
+			st.setString(1, p.getNombreProyecto());
 			st.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
