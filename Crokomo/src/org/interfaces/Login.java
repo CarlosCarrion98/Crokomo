@@ -101,9 +101,14 @@ public class Login extends JFrame {
 				usuarioLogin = new Usuario(textFieldUsuario.getText(),password,"",null);
 				if(textFieldUsuario.getText().isBlank() || (password.isBlank()))
 					labelAvisoLogin.setText("Usuario y / o contrasena vacios");
-				else if (!usuarioDAOlogin.login(usuarioLogin).equals("Failed"))
+				else if (!usuarioDAOlogin.login(usuarioLogin).equals("Failed") )
 						{
-					ListaProyectosUsuario misProyectos = new ListaProyectosUsuario(usuarioLogin);
+					if (usuarioDAOlogin.login(usuarioLogin).equals("User")){
+						ListaProyectosUsuario misProyectos = new ListaProyectosUsuario(usuarioLogin);
+					}else {
+						ListaProyectosAdmin misProyectos = new ListaProyectosAdmin(usuarioLogin);
+					}
+					
 					misProyectos.setVisible(true);
 					dispose();
 				} else
