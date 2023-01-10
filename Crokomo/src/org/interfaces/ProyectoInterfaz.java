@@ -70,7 +70,7 @@ public class ProyectoInterfaz extends JFrame {
 	public ProyectoInterfaz(Usuario u, Proyecto p) {
 		setIconImage(new ImageIcon("Assets/icono.png").getImage());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 750, 500);
+		setBounds(0, 0, 1920, 950);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -78,16 +78,19 @@ public class ProyectoInterfaz extends JFrame {
 		contentPane.setLayout(null);
 
 		JLabel Requisitos = new JLabel("Requisitos");
+		Requisitos.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		Requisitos.setHorizontalAlignment(SwingConstants.CENTER);
-		Requisitos.setBounds(221, 63, 79, 14);
+		Requisitos.setBounds(721, 91, 100, 25);
 		contentPane.add(Requisitos);
 
 		JLabel lblNewLabel = new JLabel("Clientes");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(53, 217, 69, 14);
+		lblNewLabel.setBounds(77, 423, 100, 25);
 		contentPane.add(lblNewLabel);
 
 		JButton addCliente = new JButton("Añadir");
+		addCliente.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		addCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AddCliente addCliente = new AddCliente(u, p);
@@ -95,10 +98,11 @@ public class ProyectoInterfaz extends JFrame {
 				dispose();
 			}
 		});
-		addCliente.setBounds(33, 234, 89, 23);
+		addCliente.setBounds(10, 458, 250, 40);
 		contentPane.add(addCliente);
 
 		JButton addRequisito = new JButton("Añadir");
+		addRequisito.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		addRequisito.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AddRequisito addRequisito = new AddRequisito(u, p);
@@ -106,13 +110,13 @@ public class ProyectoInterfaz extends JFrame {
 				dispose();
 			}
 		});
-		addRequisito.setBounds(297, 59, 89, 23);
+		addRequisito.setBounds(650, 120, 250, 40);
 		contentPane.add(addRequisito);
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setViewportBorder(null);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-		scrollPane.setBounds(213, 87, 399, 288);
+		scrollPane.setBounds(411, 176, 813, 550);
 		contentPane.add(scrollPane);
 
 
@@ -149,8 +153,10 @@ public class ProyectoInterfaz extends JFrame {
 		}
 
 		tablaRequisitosUsuarios = new JTable();
+		tablaRequisitosUsuarios.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		tablaRequisitosUsuarios.setBorder(null);
 		tablaRequisitosUsuarios.setModel(new DefaultTableModel(valores, nombresRequisitosDis));
+		tablaRequisitosUsuarios.setRowHeight(30);
 		tablaRequisitosUsuarios.getModel().addTableModelListener(new TableModelListener() {
 
 			@Override
@@ -180,11 +186,13 @@ public class ProyectoInterfaz extends JFrame {
 
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setViewportBorder(null);
-		scrollPane_1.setBounds(142, 87, 73, 288);
+		scrollPane_1.setBounds(270, 176, 150, 550);
 		contentPane.add(scrollPane_1);
 
 		nombresClientesTabla = new JTable();
+		nombresClientesTabla.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		nombresClientesTabla.setBorder(null);
+		nombresClientesTabla.setRowHeight(30);
 		nombresClientesTabla.setModel(new DefaultTableModel(nombresCliDisplay, new String[]{"Clientes"}));
 		scrollPane_1.setViewportView(nombresClientesTabla);
 		//		rowHeaderTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -195,18 +203,20 @@ public class ProyectoInterfaz extends JFrame {
 
 
 		textFieldEsfuerzo = new JTextField();
+		textFieldEsfuerzo.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		textFieldEsfuerzo.setHorizontalAlignment(SwingConstants.RIGHT);
 		textFieldEsfuerzo.setText("15");
-		textFieldEsfuerzo.setBounds(681, 59, 30, 20);
+		textFieldEsfuerzo.setBounds(1436, 140, 30, 30);
 		contentPane.add(textFieldEsfuerzo);
 		textFieldEsfuerzo.setColumns(10);
 
 		JDesktopPane desktopPane = new JDesktopPane();
 		desktopPane.setBackground(Color.LIGHT_GRAY);
-		desktopPane.setBounds(0, 0, 734, 43);
+		desktopPane.setBounds(0, 0, 1920, 60);
 		contentPane.add(desktopPane);
 
 		JButton botonProyectos = new JButton("Mis Proyectos");
+		botonProyectos.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		botonProyectos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ListaProyectosUsuario listaproyectos = new ListaProyectosUsuario(u);
@@ -214,10 +224,11 @@ public class ProyectoInterfaz extends JFrame {
 				dispose();
 			}
 		});
-		botonProyectos.setBounds(32, 11, 133, 23);
+		botonProyectos.setBounds(32, 11, 250, 40);
 		desktopPane.add(botonProyectos);
 
 		JButton botonCerrarSesion = new JButton("Cerrar Sesion");
+		botonCerrarSesion.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		botonCerrarSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Login login = new Login();
@@ -225,21 +236,17 @@ public class ProyectoInterfaz extends JFrame {
 				dispose();
 			}
 		});
-		botonCerrarSesion.setBounds(608, 11, 116, 23);
+		botonCerrarSesion.setBounds(1260, 11, 250, 40);
 		desktopPane.add(botonCerrarSesion);
 
-		JLabel labelNombreProyecto = new JLabel(p.getNombreProyecto());
-		labelNombreProyecto.setHorizontalAlignment(SwingConstants.CENTER);
-		labelNombreProyecto.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		labelNombreProyecto.setBounds(229, 0, 284, 43);
-		desktopPane.add(labelNombreProyecto);
-
 		JLabel labelEsfuerzo = new JLabel("Esfuerzo maximo");
-		labelEsfuerzo.setBounds(559, 62, 112, 14);
+		labelEsfuerzo.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		labelEsfuerzo.setBounds(1266, 143, 160, 25);
 		contentPane.add(labelEsfuerzo);
 
 		JButton botonSoluciones = new JButton("Mostrar Soluciones");
-		botonSoluciones.setBounds(30, 393, 148, 23);
+		botonSoluciones.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		botonSoluciones.setBounds(650, 750, 250, 40);
 		botonSoluciones.addActionListener(new ActionListener() {
 
 			@Override
@@ -255,10 +262,6 @@ public class ProyectoInterfaz extends JFrame {
 			}
 		});
 		contentPane.add(botonSoluciones);
-
-		JButton botonDetalles = new JButton("Detalles");
-		botonDetalles.setBounds(336, 427, 89, 23);
-		contentPane.add(botonDetalles);
 
 
 	}
