@@ -35,7 +35,6 @@ public class AddEditProyecto extends JFrame {
 	private static final long serialVersionUID = -5643047139612025173L;
 	private JPanel contentPane;
 	private JTextField txtNombrePro;
-	private JTextField textField;
 
 	/**
 	 * Launch the application.
@@ -93,12 +92,14 @@ public class AddEditProyecto extends JFrame {
 		lblVacio.setHorizontalAlignment(SwingConstants.CENTER);
 		lblVacio.setForeground(Color.RED);
 		lblVacio.setBounds(276, 202, 255, 14);
+		lblVacio.setVisible(false);
 		contentPane.add(lblVacio);
-		
+
 		JLabel lblProyectoExistente = new JLabel("El nombre del proyecto ya existe");
 		lblProyectoExistente.setHorizontalAlignment(SwingConstants.CENTER);
 		lblProyectoExistente.setForeground(Color.RED);
 		lblProyectoExistente.setBounds(276, 202, 255, 14);
+		lblProyectoExistente.setVisible(false);
 		contentPane.add(lblProyectoExistente);
 
 		JScrollPane scrollPane = new JScrollPane();
@@ -113,12 +114,15 @@ public class AddEditProyecto extends JFrame {
 		ArrayList<JCheckBox> checkBoxes = new ArrayList<>();
 		for(Usuario user : udao.listar()) {
 			JCheckBox checkBoxUsuario = new JCheckBox(user.getUserName());
-			if(updao.existeRelacion(p, user)) {
-				checkBoxUsuario.setSelected(true);
+			if(p != null) {
+				if(updao.existeRelacion(p, user)) {
+					checkBoxUsuario.setSelected(true);
+				}
 			}
+
 			checkBoxes.add(checkBoxUsuario);
-			
-			
+
+
 			panel.add(checkBoxUsuario);
 			if(scrollPane.getHeight() < 150) {
 				scrollPane.setBounds(scrollPane.getX(), scrollPane.getY(), scrollPane.getWidth(), scrollPane.getHeight() + 25);
@@ -134,34 +138,46 @@ public class AddEditProyecto extends JFrame {
 		botonAddPro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				lblVacio.setVisible(false);
-				
-				lblProyectoExistente.setVisible(false);
 
+				lblProyectoExistente.setVisible(false);
+				ProyectoDAO pdao = new ProyectoDAO();
+				Proyecto ptemp = pdao.obtenerProyectoPorNombre(txtNombrePro.getText());
 				if(!txtNombrePro.getText().isBlank()) {
-					ProyectoDAO pdao = new ProyectoDAO();
+
 					if(p != null) {
-						if(p.getNombreProyecto() != txtNombrePro.getText()) {
+						if(!p.getNombreProyecto().equals(txtNombrePro.getText())) {
 							p.setNombreProyecto(txtNombrePro.getText());
-							pdao.modificar(p);
+							if(ptemp == null) {
+								pdao.modificar(p);
+							} else {
+								lblProyectoExistente.setVisible(true);
+							}
+							
 						}
 						for(JCheckBox jcb : checkBoxes) {
 							if(jcb.isSelected()) {
 								Usuario user = udao.obtenerUsuarioPorNombre(jcb.getText());
-								if(jcb.getText().equals(user.getUserName()))
-									updao.insertar(new UsuarioProyecto(p.getIdProyecto(), user.getUserName()));
+								if(!updao.existeRelacion(p, user)) {
+									if(jcb.getText().equals(user.getUserName()))
+										updao.insertar(new UsuarioProyecto(p.getIdProyecto(), user.getUserName()));
+								}
+								
 
 							} else {
 								if(updao.existeRelacion(p, udao.obtenerUsuarioPorNombre(jcb.getText()))) {
 									updao.eliminar(new UsuarioProyecto(p.getIdProyecto(), jcb.getText()));
 								}
-								
+
 							}
 						}
-						ListaProyectosAdmin listaProyectosAdmin = new ListaProyectosAdmin(u);
-						listaProyectosAdmin.setVisible(true);
-						dispose();
+						if(ptemp == null || p.getNombreProyecto().equals(txtNombrePro.getText())) {
+							ListaProyectosAdmin listaProyectosAdmin = new ListaProyectosAdmin(u);
+							listaProyectosAdmin.setVisible(true);
+							dispose();
+						}
+						
 					} else {
-						Proyecto ptemp = pdao.obtenerProyectoPorNombre(txtNombrePro.getText());
+
 						if(ptemp == null) {
 							pdao.insertar(new Proyecto(0, txtNombrePro.getText(), null));
 							Proyecto temp = pdao.obtenerProyectoPorNombre(txtNombrePro.getText());
@@ -180,8 +196,8 @@ public class AddEditProyecto extends JFrame {
 							lblProyectoExistente.setVisible(true);
 						}
 					}
-					
-					
+
+
 				} else {
 					lblVacio.setVisible(true);
 				}
@@ -189,7 +205,6 @@ public class AddEditProyecto extends JFrame {
 			}
 		});
 
-		textField.setColumns(10);
 
 		JButton botonVolver = new JButton("Volver");
 		botonVolver.addActionListener(new ActionListener() {

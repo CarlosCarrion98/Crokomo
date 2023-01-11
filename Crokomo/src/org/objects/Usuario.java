@@ -53,4 +53,8 @@ public class Usuario {
 		this.relacionesProyecto = new ArrayList<>(relacionesProyecto);
 	}
 	
+	public String toString() {
+		return this.userName;
+	}
+	
 }

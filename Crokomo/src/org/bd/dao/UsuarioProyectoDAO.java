@@ -15,8 +15,8 @@ public class UsuarioProyectoDAO extends Conexion{
 		try {
 			iniciarConexion();
 			PreparedStatement st = connection.prepareStatement("INSERT INTO PROYECTO_HAS_USUARIO VALUES(?, ?)");
-			st.setString(1, up.getUserName());
-			st.setInt(2, up.getIdProyecto());
+			st.setInt(1, up.getIdProyecto());
+			st.setString(2, up.getUserName());
 			st.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -30,7 +30,7 @@ public class UsuarioProyectoDAO extends Conexion{
 	public void eliminar(UsuarioProyecto up) {
 		try {				
 			iniciarConexion();
-			PreparedStatement st = connection.prepareStatement("DELETE FROM PROYECTO_HAS_USUARIO where Usuario_nombreUsuario = ? AND Proyecto_idProyecto = ?");
+			PreparedStatement st = connection.prepareStatement("DELETE FROM PROYECTO_HAS_USUARIO where nombreUsuario = ? AND idProyecto = ?");
 			st.setString(1, up.getUserName());
 			st.setInt(2, up.getIdProyecto());
 			st.executeUpdate();
