@@ -4,17 +4,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import org.bd.dao.ClienteDAO;
-import org.bd.dao.ClienteRequisitoDAO;
 import org.bd.dao.ProyectoDAO;
-import org.bd.dao.RequisitoDAO;
 import org.bd.dao.UsuarioDAO;
 import org.bd.dao.UsuarioProyectoDAO;
-import org.objects.Cliente;
 import org.objects.Proyecto;
-import org.objects.Requisito;
 import org.objects.Usuario;
-import org.objects.relations.ClienteRequisito;
 import org.objects.relations.UsuarioProyecto;
 
 import javax.swing.JLabel;
