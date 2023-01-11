@@ -1,4 +1,4 @@
-package org.interfaces;
+	package org.interfaces;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;

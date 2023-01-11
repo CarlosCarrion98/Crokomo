@@ -140,6 +140,7 @@ public class ListaProyectosUsuario extends JFrame {
 		scrollPane.setViewportView(listaProyectos);
 		
 		JButton botonSeleccionarProyecto = new JButton("Seleccionar");
+		botonSeleccionarProyecto.setFont(new Font("Tahoma",Font.PLAIN,20));
 		botonSeleccionarProyecto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(listaProyectos.getSelectedIndex() != -1)
