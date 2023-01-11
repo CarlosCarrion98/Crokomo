@@ -69,15 +69,15 @@ public class AddEditUsuario extends JFrame {
 		desktopPane.setBackground(Color.LIGHT_GRAY);
 		desktopPane.setBounds(0, 0, 1920, 60);
 		contentPane.add(desktopPane);
-		JLabel labelAddProyecto = new JLabel("Modificar Proyecto");
+		JLabel labelAddProyecto = new JLabel("Modificar Usuario");
 		if(p == null)
-			labelAddProyecto = new JLabel("Añadir Proyecto");
+			labelAddProyecto = new JLabel("Añadir Usuario");
 		labelAddProyecto.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		labelAddProyecto.setHorizontalAlignment(SwingConstants.CENTER);
 		labelAddProyecto.setBounds(598, 10, 284, 43);
 		desktopPane.add(labelAddProyecto);
 
-		JLabel lblNewLabel_1 = new JLabel("Nombre del proyecto");
+		JLabel lblNewLabel_1 = new JLabel("Nombre del usuario");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setBounds(632, 129, 210, 23);
@@ -90,15 +90,15 @@ public class AddEditUsuario extends JFrame {
 		contentPane.add(txtNombrePro);
 		txtNombrePro.setColumns(10);
 
-		JLabel lblVacio = new JLabel("Nombre del proyecto no puede estar vacío");
+		JLabel lblVacio = new JLabel("Nombre del usuario no puede estar vacío");
 		lblVacio.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblVacio.setHorizontalAlignment(SwingConstants.CENTER);
 		lblVacio.setForeground(Color.RED);
-		lblVacio.setBounds(545, 202, 401, 39);
+		lblVacio.setBounds(543, 202, 401, 39);
 		lblVacio.setVisible(false);
 		contentPane.add(lblVacio);
 
-		JLabel lblProyectoExistente = new JLabel("El nombre del proyecto ya existe");
+		JLabel lblProyectoExistente = new JLabel("El nombre del usuario ya existe");
 		lblProyectoExistente.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblProyectoExistente.setHorizontalAlignment(SwingConstants.CENTER);
 		lblProyectoExistente.setForeground(Color.RED);

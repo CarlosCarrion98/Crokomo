@@ -82,8 +82,6 @@ public class ListaProyectosAdmin extends JFrame {
 		desktopPane.setBackground(Color.LIGHT_GRAY);
 		contentPane.add(desktopPane);
 		
-		
-		
 		JButton botonEliminarProyecto = new JButton("Eliminar");
 		JButton botonEliminarUsuario = new JButton("Eliminar");
 		
