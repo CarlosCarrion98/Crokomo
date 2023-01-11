@@ -262,6 +262,18 @@ public class ProyectoInterfaz extends JFrame {
 			}
 		});
 		contentPane.add(botonSoluciones);
+		
+		JButton btnNewButton = new JButton("Eliminar");
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ProyectoEliminar eliminar = new ProyectoEliminar(u,p);
+				eliminar.setVisible(true);
+				dispose();
+			}
+		});
+		btnNewButton.setBounds(1266, 458, 250, 40);
+		contentPane.add(btnNewButton);
 
 
 	}
