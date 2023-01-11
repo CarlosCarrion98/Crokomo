@@ -75,13 +75,15 @@ public class Formulas {
 	 */
 	public static double coberturaSolucion(Solucion s, ArrayList<Requisito> requisitos) {
 		ArrayList<Requisito> requisitosSolucion = s.getRequisitos();
-		int valorTotal = 0;
-		int valorSolucion = 0;
+		double valorTotal = 0;
+		double valorSolucion = 0;
 		for(Requisito r : requisitos) {
 			for(ClienteRequisito cr : r.getRelaciones()) {
-				if(requisitosSolucion.contains(r))
-					valorSolucion += cr.getValor();
-				valorTotal += cr.getValor();
+				if(cr != null) {
+					if(requisitosSolucion.contains(r))
+						valorSolucion += cr.getValor();
+					valorTotal += cr.getValor();
+				}
 			}
 		}
 		return valorSolucion / valorTotal;

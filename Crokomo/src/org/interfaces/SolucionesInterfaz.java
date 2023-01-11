@@ -18,6 +18,7 @@ import org.objects.Proyecto;
 import org.objects.Requisito;
 import org.objects.Solucion;
 import org.objects.Usuario;
+import org.objects.relations.ClienteRequisito;
 import org.utility.calculo.Formulas;
 import org.utility.calculo.Mochila;
 import org.utility.comparator.RequisitoComparator;
@@ -87,10 +88,10 @@ public class SolucionesInterfaz extends JFrame {
 		contentPane.add(botonVolver);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(450, 120, 600, 600);
+		scrollPane.setBounds(351, 120, 815, 600);
 		contentPane.add(scrollPane);
 		String[] nombresTabla = {
-				"Soluciones", "Requisitos", "Satisfaccion"
+				"Soluciones", "Requisitos", "Satisfaccion", "Productividad", "Cobertura", "Esfuerzo"
 		};
 		ArrayList<Solucion> soluciones = new ArrayList<>();
 		ArrayList<Requisito> auxiliares = new ArrayList<>();
@@ -98,6 +99,7 @@ public class SolucionesInterfaz extends JFrame {
 		ClienteRequisitoDAO crdao = new ClienteRequisitoDAO();
 		ClienteDAO cdao = new ClienteDAO();
 		ArrayList<Requisito> requisitosProyecto = rdao.listarPorProyecto(p);
+		ArrayList<Requisito> requisitosProyectoAux = rdao.listarPorProyecto(p);
 		ArrayList<Cliente> clientesProyecto = cdao.listarPorProyecto(p);
  		for(Requisito r : requisitosProyecto) {
  			if(r.getEsfuerzo() > esfuerzoMaximo) {
@@ -129,11 +131,26 @@ public class SolucionesInterfaz extends JFrame {
 				contenidoTabla[i][1] += String.format(", %s(%d)", requisitosSolucionActual.get(j).getNombreRequisito(), requisitosSolucionActual.get(j).getSatisfaccion());
 			}
 			contenidoTabla[i][2] = Integer.toString(Formulas.satisfaccionSolucion(requisitosSolucionActual));
+			contenidoTabla[i][3] = String.format("%.2f",Formulas.productividadSolucion(soluciones.get(i)));
+			for (Requisito requisito : requisitosProyectoAux) {
+				ArrayList<ClienteRequisito> crAux = crdao.listarPorRequisito(requisito);
+				requisitosProyectoAux.get(requisitosProyectoAux.indexOf(requisito)).setRelaciones(crAux);
+			}
+			contenidoTabla[i][4] = String.format("%.2f",Formulas.coberturaSolucion(soluciones.get(i),requisitosProyectoAux)) + "%";
+			int esfSolucion = 0;
+			for(Requisito requisito : requisitosSolucionActual) {
+				esfSolucion += requisito.getEsfuerzo();
+			}
+			contenidoTabla[i][5] = Integer.toString(esfSolucion) + "/" + Integer.toString(esfuerzoMaximo);
 		}
 		
 		table = new JTable();
 		table.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		table.setModel(new DefaultTableModel(contenidoTabla, nombresTabla));
+		table.setModel(new DefaultTableModel(contenidoTabla,
+			new String[] {
+				"Soluciones", "Requisitos", "Satisfaccion", "Productividad", "Cobertura", "Esfuerzo"
+			}
+		));
 		
 		table.setAlignmentX(JTable.CENTER_ALIGNMENT);
 		table.setAlignmentY(JTable.CENTER_ALIGNMENT);
