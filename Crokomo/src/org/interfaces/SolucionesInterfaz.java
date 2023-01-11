@@ -83,14 +83,14 @@ public class SolucionesInterfaz extends JFrame {
 					dispose();
 			}
 		});
-		botonVolver.setBounds(650, 740, 250, 40);
+		botonVolver.setBounds(450, 740, 250, 40);
 		contentPane.add(botonVolver);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(450, 120, 600, 600);
 		contentPane.add(scrollPane);
 		String[] nombresTabla = {
-				"Soluciones", "Requisitos", "Satisfacci\u00F3n"
+				"Soluciones", "Requisitos", "Satisfaccion"
 		};
 		ArrayList<Solucion> soluciones = new ArrayList<>();
 		ArrayList<Requisito> auxiliares = new ArrayList<>();
@@ -170,5 +170,14 @@ public class SolucionesInterfaz extends JFrame {
 		});
 		botonCerrarSesion.setBounds(1638, 11, 250, 40);
 		desktopPane.add(botonCerrarSesion);
+		
+		JButton btnModificarSoluciones = new JButton("Modificar soluciones");
+		btnModificarSoluciones.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnModificarSoluciones.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnModificarSoluciones.setBounds(800, 740, 250, 40);
+		contentPane.add(btnModificarSoluciones);
 	}
 }

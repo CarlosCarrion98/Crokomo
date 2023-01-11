@@ -58,7 +58,7 @@ public class AddEditProyecto extends JFrame {
 	public AddEditProyecto(Usuario u, Proyecto p) {
 		setIconImage(new ImageIcon("Assets/icono.png").getImage());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 750, 500);
+		setBounds(0, 0, 1920, 950);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -67,53 +67,60 @@ public class AddEditProyecto extends JFrame {
 
 		JDesktopPane desktopPane = new JDesktopPane();
 		desktopPane.setBackground(Color.LIGHT_GRAY);
-		desktopPane.setBounds(0, 0, 734, 43);
+		desktopPane.setBounds(0, 0, 1920, 60);
 		contentPane.add(desktopPane);
 		JLabel labelAddProyecto = new JLabel("Modificar Proyecto");
 		if(p == null)
 			labelAddProyecto = new JLabel("Añadir Proyecto");
-		labelAddProyecto.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		labelAddProyecto.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		labelAddProyecto.setHorizontalAlignment(SwingConstants.CENTER);
-		labelAddProyecto.setBounds(259, 0, 284, 43);
+		labelAddProyecto.setBounds(598, 10, 284, 43);
 		desktopPane.add(labelAddProyecto);
 
 		JLabel lblNewLabel_1 = new JLabel("Nombre del proyecto");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setBounds(346, 112, 116, 14);
+		lblNewLabel_1.setBounds(632, 129, 210, 23);
 		contentPane.add(lblNewLabel_1);
 
 		txtNombrePro = new JTextField();
-		txtNombrePro.setBounds(276, 137, 255, 20);
+		txtNombrePro.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		txtNombrePro.setBounds(590, 162, 300, 30);
 		if(p != null) txtNombrePro.setText(p.getNombreProyecto());
 		contentPane.add(txtNombrePro);
 		txtNombrePro.setColumns(10);
 
 		JLabel lblVacio = new JLabel("Nombre del proyecto no puede estar vacío");
+		lblVacio.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblVacio.setHorizontalAlignment(SwingConstants.CENTER);
 		lblVacio.setForeground(Color.RED);
-		lblVacio.setBounds(276, 202, 255, 14);
+		lblVacio.setBounds(545, 202, 401, 39);
 		lblVacio.setVisible(false);
 		contentPane.add(lblVacio);
 
 		JLabel lblProyectoExistente = new JLabel("El nombre del proyecto ya existe");
+		lblProyectoExistente.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblProyectoExistente.setHorizontalAlignment(SwingConstants.CENTER);
 		lblProyectoExistente.setForeground(Color.RED);
-		lblProyectoExistente.setBounds(276, 202, 255, 14);
+		lblProyectoExistente.setBounds(576, 202, 328, 39);
 		lblProyectoExistente.setVisible(false);
 		contentPane.add(lblProyectoExistente);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(276, 251, 255, 0);
+		scrollPane.setBounds(660, 280, 150, 0);
 		contentPane.add(scrollPane);
 
 		JPanel panel = new JPanel();
 		scrollPane.setViewportView(panel);
+		panel.setBounds(610, 277, 236, 0);
 		panel.setLayout(new GridLayout(0, 1, 0, 0));
+		
 		UsuarioDAO udao = new UsuarioDAO();
 		UsuarioProyectoDAO updao = new UsuarioProyectoDAO();
 		ArrayList<JCheckBox> checkBoxes = new ArrayList<>();
 		for(Usuario user : udao.listar()) {
 			JCheckBox checkBoxUsuario = new JCheckBox(user.getUserName());
+			checkBoxUsuario.setFont(new Font("Tahoma", Font.PLAIN, 20));
 			if(p != null) {
 				if(updao.existeRelacion(p, user)) {
 					checkBoxUsuario.setSelected(true);
@@ -122,18 +129,19 @@ public class AddEditProyecto extends JFrame {
 
 			checkBoxes.add(checkBoxUsuario);
 
-
 			panel.add(checkBoxUsuario);
-			if(scrollPane.getHeight() < 150) {
-				scrollPane.setBounds(scrollPane.getX(), scrollPane.getY(), scrollPane.getWidth(), scrollPane.getHeight() + 25);
+			if(scrollPane.getHeight() < 240) {
+				scrollPane.setBounds(scrollPane.getX(), scrollPane.getY(), scrollPane.getWidth(), scrollPane.getHeight() + 40);
 			}
 		}
 
 		JButton botonAddPro = new JButton("Modificar");
+		botonAddPro.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		if(p == null) {
 			botonAddPro = new JButton("Añadir");
+			botonAddPro.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		}
-		botonAddPro.setBounds(433, 412, 98, 23);
+		botonAddPro.setBounds(825, 600, 250, 40);
 		contentPane.add(botonAddPro);
 		botonAddPro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -207,6 +215,7 @@ public class AddEditProyecto extends JFrame {
 
 
 		JButton botonVolver = new JButton("Volver");
+		botonVolver.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		botonVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ListaProyectosAdmin listaProyectosAdmin = new ListaProyectosAdmin(u);
@@ -214,8 +223,8 @@ public class AddEditProyecto extends JFrame {
 				dispose();
 			}
 		});
-		botonVolver.setBounds(276, 412, 98, 23);
+		botonVolver.setBounds(400, 600, 250, 40);
 		contentPane.add(botonVolver);
-
+		
 	}
 }
