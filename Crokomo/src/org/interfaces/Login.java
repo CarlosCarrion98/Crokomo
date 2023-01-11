@@ -56,7 +56,7 @@ public class Login extends JFrame {
 	 * Create the frame.
 	 */
 	public Login() {
-		setIconImage(new ImageIcon("Assets/icono.png").getImage());
+		setIconImage(new ImageIcon(getClass().getClassLoader().getResource("icono.png")).getImage());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 1920, 950);
 		contentPane = new JPanel();
@@ -83,16 +83,17 @@ public class Login extends JFrame {
 		contentPane.add(LabelContrasena);
 		
 		LabelIconoLogin = new JLabel("IconoLogin");
-		LabelIconoLogin.setBounds(560, 35, 432, 436);
+		LabelIconoLogin.setBounds(563, 35, 400, 400);
 		contentPane.add(LabelIconoLogin);
 		
-		ImageIcon logo = new ImageIcon("Assets/icono.png");
+		ImageIcon logo = new ImageIcon(new ImageIcon(getClass().getClassLoader().getResource("icono.png")).getImage());
 		Icon icono = new ImageIcon(logo.getImage().getScaledInstance(LabelIconoLogin.getWidth(), LabelIconoLogin.getHeight(), Image.SCALE_DEFAULT));
 		LabelIconoLogin.setIcon(icono);
 		
 		JLabel labelAvisoLogin = new JLabel("");
+		labelAvisoLogin.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		labelAvisoLogin.setForeground(Color.RED);
-		labelAvisoLogin.setBounds(400, 362, 240, 14);
+		labelAvisoLogin.setBounds(614, 446, 450, 40);
 		contentPane.add(labelAvisoLogin);
 		
 		textFieldContrasena = new JPasswordField();

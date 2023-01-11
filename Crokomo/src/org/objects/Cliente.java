@@ -85,4 +85,8 @@ public class Cliente {
 		Cliente other = (Cliente) obj;
 		return idCliente == other.idCliente;
 	}
+	
+	public String toString() {
+		return this.nombreCliente;
+	}
 }
