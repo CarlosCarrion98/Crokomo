@@ -93,8 +93,8 @@ public class ListaProyectosAdmin extends JFrame {
 		
 		JLabel labelNombreUsuario = new JLabel("Hola " + u.getUserName());
 		labelNombreUsuario.setHorizontalAlignment(SwingConstants.CENTER);
-		labelNombreUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		labelNombreUsuario.setBounds(721, 25, 100, 25);
+		labelNombreUsuario.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		labelNombreUsuario.setBounds(680, 25, 200, 25);
 		desktopPane.add(labelNombreUsuario);
 		
 		JList<Proyecto> list = new JList<Proyecto>();
@@ -152,7 +152,8 @@ public class ListaProyectosAdmin extends JFrame {
 				}
 			}
 		});
-		botonSeleccionarProyecto.setBounds(650, 700, 250, 40);
+		botonSeleccionarProyecto.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		botonSeleccionarProyecto.setBounds(680, 700, 250, 40);
 		contentPane.add(botonSeleccionarProyecto);
 
 	}
