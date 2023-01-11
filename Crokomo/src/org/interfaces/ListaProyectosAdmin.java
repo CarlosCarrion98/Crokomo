@@ -54,7 +54,7 @@ public class ListaProyectosAdmin extends JFrame {
 	 * Create the frame.
 	 */
 	public ListaProyectosAdmin(Usuario u) {
-		setIconImage(new ImageIcon("Assets/icono.png").getImage());
+		setIconImage(new ImageIcon(getClass().getClassLoader().getResource("icono.png")).getImage());
 		ProyectoDAO pdao = new ProyectoDAO();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

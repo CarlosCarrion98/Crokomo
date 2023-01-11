@@ -52,7 +52,7 @@ public class ListaProyectosUsuario extends JFrame {
 	 * Create the frame.
 	 */
 	public ListaProyectosUsuario(Usuario u) {
-		setIconImage(new ImageIcon("Assets/icono.png").getImage());
+		setIconImage(new ImageIcon(getClass().getClassLoader().getResource("icono.png")).getImage());
 		UsuarioProyectoDAO updao = new UsuarioProyectoDAO();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

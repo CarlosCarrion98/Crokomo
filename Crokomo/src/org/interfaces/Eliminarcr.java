@@ -56,7 +56,7 @@ public class Eliminarcr extends JFrame {
 	 * Create the frame.
 	 */
 	public Eliminarcr(Usuario u, Proyecto p) {
-		setIconImage(new ImageIcon("Assets/icono.png").getImage());
+		setIconImage(new ImageIcon(getClass().getClassLoader().getResource("icono.png")).getImage());
 		ClienteDAO cdao = new ClienteDAO();
 		RequisitoDAO rdao = new RequisitoDAO();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

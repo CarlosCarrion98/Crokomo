@@ -56,7 +56,7 @@ public class Login extends JFrame {
 	 * Create the frame.
 	 */
 	public Login() {
-		setIconImage(new ImageIcon("src/Assets/icono.png").getImage());
+		setIconImage(new ImageIcon(getClass().getClassLoader().getResource("icono.png")).getImage());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 1920, 950);
 		contentPane = new JPanel();
@@ -86,7 +86,7 @@ public class Login extends JFrame {
 		LabelIconoLogin.setBounds(563, 35, 400, 400);
 		contentPane.add(LabelIconoLogin);
 		
-		ImageIcon logo = new ImageIcon("src/Assets/icono.png");
+		ImageIcon logo = new ImageIcon(new ImageIcon(getClass().getClassLoader().getResource("icono.png")).getImage());
 		Icon icono = new ImageIcon(logo.getImage().getScaledInstance(LabelIconoLogin.getWidth(), LabelIconoLogin.getHeight(), Image.SCALE_DEFAULT));
 		LabelIconoLogin.setIcon(icono);
 		

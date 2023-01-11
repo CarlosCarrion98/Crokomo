@@ -68,7 +68,7 @@ public class ProyectoInterfaz extends JFrame {
 	 * Create the frame.
 	 */
 	public ProyectoInterfaz(Usuario u, Proyecto p) {
-		setIconImage(new ImageIcon("Assets/icono.png").getImage());
+		setIconImage(new ImageIcon(getClass().getClassLoader().getResource("icono.png")).getImage());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 1920, 950);
 		contentPane = new JPanel();
