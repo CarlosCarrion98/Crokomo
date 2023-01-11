@@ -1,11 +1,9 @@
 package org.utility.calculo;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import org.objects.Requisito;
 import org.objects.Solucion;
-import org.utility.comparator.RequisitoComparator;
 
 public class Mochila {
 

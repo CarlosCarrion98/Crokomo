@@ -86,7 +86,7 @@ public class Formulas {
 				}
 			}
 		}
-		return valorSolucion / valorTotal;
+		return (valorSolucion / valorTotal) * 100;
 	}
 
 }

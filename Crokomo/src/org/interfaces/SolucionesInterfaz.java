@@ -18,7 +18,6 @@ import org.objects.Proyecto;
 import org.objects.Requisito;
 import org.objects.Solucion;
 import org.objects.Usuario;
-import org.objects.relations.ClienteRequisito;
 import org.utility.calculo.Formulas;
 import org.utility.calculo.Mochila;
 import org.utility.comparator.RequisitoComparator;
@@ -30,7 +29,6 @@ import java.awt.event.ActionEvent;
 import javax.swing.JDesktopPane;
 import java.awt.Color;
 import java.awt.Font;
-import javax.swing.SwingConstants;
 
 public class SolucionesInterfaz extends JFrame {
 
@@ -84,7 +82,7 @@ public class SolucionesInterfaz extends JFrame {
 					dispose();
 			}
 		});
-		botonVolver.setBounds(450, 740, 250, 40);
+		botonVolver.setBounds(643, 730, 250, 40);
 		contentPane.add(botonVolver);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -107,6 +105,7 @@ public class SolucionesInterfaz extends JFrame {
  			}
  			r.setRelaciones(crdao.listarPorRequisito(r));
 			Formulas.calcularSatisfaccion(r, clientesProyecto);
+			requisitosProyectoAux.add(r);
 		}
  		for(Requisito r : auxiliares)
  			requisitosProyecto.remove(r);
@@ -132,10 +131,10 @@ public class SolucionesInterfaz extends JFrame {
 			}
 			contenidoTabla[i][2] = Integer.toString(Formulas.satisfaccionSolucion(requisitosSolucionActual));
 			contenidoTabla[i][3] = String.format("%.2f",Formulas.productividadSolucion(soluciones.get(i)));
-			for (Requisito requisito : requisitosProyectoAux) {
-				ArrayList<ClienteRequisito> crAux = crdao.listarPorRequisito(requisito);
-				requisitosProyectoAux.get(requisitosProyectoAux.indexOf(requisito)).setRelaciones(crAux);
-			}
+//			for (Requisito requisito : requisitosProyectoAux) {
+//				ArrayList<ClienteRequisito> crAux = crdao.listarPorRequisito(requisito);
+//				requisitosProyectoAux.get(requisitosProyectoAux.indexOf(requisito)).setRelaciones(crAux);
+//			}
 			contenidoTabla[i][4] = String.format("%.2f",Formulas.coberturaSolucion(soluciones.get(i),requisitosProyectoAux)) + "%";
 			int esfSolucion = 0;
 			for(Requisito requisito : requisitosSolucionActual) {
@@ -187,14 +186,5 @@ public class SolucionesInterfaz extends JFrame {
 		});
 		botonCerrarSesion.setBounds(1638, 11, 250, 40);
 		desktopPane.add(botonCerrarSesion);
-		
-		JButton btnModificarSoluciones = new JButton("Modificar soluciones");
-		btnModificarSoluciones.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnModificarSoluciones.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnModificarSoluciones.setBounds(800, 740, 250, 40);
-		contentPane.add(btnModificarSoluciones);
 	}
 }
