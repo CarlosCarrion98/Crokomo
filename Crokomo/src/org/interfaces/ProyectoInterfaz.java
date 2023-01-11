@@ -267,7 +267,7 @@ public class ProyectoInterfaz extends JFrame {
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ProyectoEliminar eliminar = new ProyectoEliminar(u,p);
+				Eliminarcr eliminar = new Eliminarcr(u,p);
 				eliminar.setVisible(true);
 				dispose();
 			}

@@ -51,7 +51,7 @@ public class AddCliente extends JFrame {
 	 * Create the frame.
 	 */
 	public AddCliente(Usuario u, Proyecto p) {
-		setIconImage(new ImageIcon("Assets/icono.png").getImage());
+		setIconImage(new ImageIcon("icono.png").getImage());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0,0, 1920, 950);
 		contentPane = new JPanel();
