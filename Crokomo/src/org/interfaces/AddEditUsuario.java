@@ -2,14 +2,11 @@ package org.interfaces;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 
-import org.bd.dao.ProyectoDAO;
 import org.bd.dao.UsuarioDAO;
-import org.bd.dao.UsuarioProyectoDAO;
-import org.objects.Proyecto;
 import org.objects.Usuario;
-import org.objects.relations.UsuarioProyecto;
 
 import javax.swing.JLabel;
 import javax.swing.JDesktopPane;
@@ -21,11 +18,8 @@ import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.awt.event.ActionEvent;
-import javax.swing.JScrollPane;
-import javax.swing.JCheckBox;
-import java.awt.GridLayout;
+import javax.swing.JComboBox;
 
 public class AddEditUsuario extends JFrame {
 
@@ -34,7 +28,8 @@ public class AddEditUsuario extends JFrame {
 	 */
 	private static final long serialVersionUID = -5643047139612025173L;
 	private JPanel contentPane;
-	private JTextField txtNombrePro;
+	private JTextField txtNombreUser;
+	private JTextField textFieldContrasena;
 
 	/**
 	 * Launch the application.
@@ -55,7 +50,7 @@ public class AddEditUsuario extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public AddEditUsuario(Usuario u, Proyecto p) {
+	public AddEditUsuario(Usuario u, Usuario user) {
 		setIconImage(new ImageIcon("Assets/icono.png").getImage());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 1920, 950);
@@ -69,13 +64,13 @@ public class AddEditUsuario extends JFrame {
 		desktopPane.setBackground(Color.LIGHT_GRAY);
 		desktopPane.setBounds(0, 0, 1920, 60);
 		contentPane.add(desktopPane);
-		JLabel labelAddProyecto = new JLabel("Modificar Usuario");
-		if(p == null)
-			labelAddProyecto = new JLabel("Añadir Usuario");
-		labelAddProyecto.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		labelAddProyecto.setHorizontalAlignment(SwingConstants.CENTER);
-		labelAddProyecto.setBounds(598, 10, 284, 43);
-		desktopPane.add(labelAddProyecto);
+		JLabel labelAddUsuario = new JLabel("Modificar Usuario");
+		if(user == null)
+			labelAddUsuario = new JLabel("Añadir Usuario");
+		labelAddUsuario.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		labelAddUsuario.setHorizontalAlignment(SwingConstants.CENTER);
+		labelAddUsuario.setBounds(598, 10, 284, 43);
+		desktopPane.add(labelAddUsuario);
 
 		JLabel lblNewLabel_1 = new JLabel("Nombre del usuario");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -83,12 +78,58 @@ public class AddEditUsuario extends JFrame {
 		lblNewLabel_1.setBounds(632, 129, 210, 23);
 		contentPane.add(lblNewLabel_1);
 
-		txtNombrePro = new JTextField();
-		txtNombrePro.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		txtNombrePro.setBounds(590, 162, 300, 30);
-		if(p != null) txtNombrePro.setText(p.getNombreProyecto());
-		contentPane.add(txtNombrePro);
-		txtNombrePro.setColumns(10);
+		txtNombreUser = new JTextField();
+		txtNombreUser.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		txtNombreUser.setBounds(590, 162, 300, 30);
+		if(user != null) txtNombreUser.setText(user.getUserName());
+		contentPane.add(txtNombreUser);
+		txtNombreUser.setColumns(10);
+		
+		JLabel lblContrasena = new JLabel("Contraseña");
+		lblContrasena.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblContrasena.setBounds(683, 277, 107, 23);
+		contentPane.add(lblContrasena);
+		
+		textFieldContrasena = new JPasswordField();
+		textFieldContrasena.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		textFieldContrasena.setColumns(10);
+		textFieldContrasena.setBounds(590, 310, 300, 30);
+		if(user != null) {
+			textFieldContrasena.setText(user.getPassword());
+			textFieldContrasena.setEnabled(false);
+			JButton btnCambiarContrasea = new JButton("Cambiar contraseña");
+			btnCambiarContrasea.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			btnCambiarContrasea.setBounds(953, 305, 250, 40);
+			btnCambiarContrasea.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					textFieldContrasena.setEnabled(true);
+					textFieldContrasena.setText("");
+				}
+			});
+			contentPane.add(btnCambiarContrasea);
+		}
+		contentPane.add(textFieldContrasena);
+		
+		JComboBox<String> cbRol = new JComboBox<String>();
+		cbRol.setBounds(661, 463, 148, 21);
+		cbRol.addItem("User");
+		cbRol.addItem("Admin");
+		cbRol.setSelectedIndex(0);
+		if(user != null) {
+			if(user.getRol().equals("admin")) {
+				cbRol.setSelectedIndex(1);
+			}
+		}
+		contentPane.add(cbRol);
+		
+		JLabel lblRol = new JLabel("Privilegios");
+		lblRol.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblRol.setBounds(688, 425, 95, 23);
+		contentPane.add(lblRol);
+		
+		//Label Errores
 
 		JLabel lblVacio = new JLabel("Nombre del usuario no puede estar vacío");
 		lblVacio.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -98,118 +139,68 @@ public class AddEditUsuario extends JFrame {
 		lblVacio.setVisible(false);
 		contentPane.add(lblVacio);
 
-		JLabel lblProyectoExistente = new JLabel("El nombre del usuario ya existe");
-		lblProyectoExistente.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblProyectoExistente.setHorizontalAlignment(SwingConstants.CENTER);
-		lblProyectoExistente.setForeground(Color.RED);
-		lblProyectoExistente.setBounds(576, 202, 328, 39);
-		lblProyectoExistente.setVisible(false);
-		contentPane.add(lblProyectoExistente);
-
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(660, 280, 150, 0);
-		contentPane.add(scrollPane);
-
-		JPanel panel = new JPanel();
-		scrollPane.setViewportView(panel);
-		panel.setBounds(610, 277, 236, 0);
-		panel.setLayout(new GridLayout(0, 1, 0, 0));
+		JLabel lblUsuarioExistente = new JLabel("El nombre del usuario ya existe");
+		lblUsuarioExistente.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblUsuarioExistente.setHorizontalAlignment(SwingConstants.CENTER);
+		lblUsuarioExistente.setForeground(Color.RED);
+		lblUsuarioExistente.setBounds(576, 202, 328, 39);
+		lblUsuarioExistente.setVisible(false);
+		contentPane.add(lblUsuarioExistente);
+		
+		JLabel lblVacioPass = new JLabel("Contraseña no puede estar vacía");
+		lblVacioPass.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblVacioPass.setHorizontalAlignment(SwingConstants.CENTER);
+		lblVacioPass.setForeground(Color.RED);
+		lblVacioPass.setBounds(543, 350, 401, 39);
+		lblVacioPass.setVisible(false);
+		contentPane.add(lblVacioPass);
 		
 		UsuarioDAO udao = new UsuarioDAO();
-		UsuarioProyectoDAO updao = new UsuarioProyectoDAO();
-		ArrayList<JCheckBox> checkBoxes = new ArrayList<>();
-		for(Usuario user : udao.listar()) {
-			JCheckBox checkBoxUsuario = new JCheckBox(user.getUserName());
-			checkBoxUsuario.setFont(new Font("Tahoma", Font.PLAIN, 20));
-			if(p != null) {
-				if(updao.existeRelacion(p, user)) {
-					checkBoxUsuario.setSelected(true);
-				}
-			}
-
-			checkBoxes.add(checkBoxUsuario);
-
-			panel.add(checkBoxUsuario);
-			if(scrollPane.getHeight() < 240) {
-				scrollPane.setBounds(scrollPane.getX(), scrollPane.getY(), scrollPane.getWidth(), scrollPane.getHeight() + 40);
-			}
-		}
-
 		JButton botonAddPro = new JButton("Modificar");
-		botonAddPro.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		if(p == null) {
+		if(user == null) {
 			botonAddPro = new JButton("Añadir");
-			botonAddPro.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		}
+		botonAddPro.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		botonAddPro.setBounds(825, 600, 250, 40);
 		contentPane.add(botonAddPro);
 		botonAddPro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				lblVacio.setVisible(false);
 
-				lblProyectoExistente.setVisible(false);
-				ProyectoDAO pdao = new ProyectoDAO();
-				Proyecto ptemp = pdao.obtenerProyectoPorNombre(txtNombrePro.getText());
-				if(!txtNombrePro.getText().isBlank()) {
-
-					if(p != null) {
-						if(!p.getNombreProyecto().equals(txtNombrePro.getText())) {
-							p.setNombreProyecto(txtNombrePro.getText());
-							if(ptemp == null) {
-								pdao.modificar(p);
+				lblUsuarioExistente.setVisible(false);
+				
+				lblVacioPass.setVisible(false);
+				
+				Usuario userTemp = udao.obtenerUsuarioPorNombre(txtNombreUser.getText());
+				if(!txtNombreUser.getText().isBlank()) {
+					if(!textFieldContrasena.getText().isBlank()) {
+						if(user == null) {
+							if(userTemp == null) {
+								udao.insertar(new Usuario(txtNombreUser.getText(), textFieldContrasena.getText(), cbRol.getSelectedItem().toString(), null));
+								ListaProyectosAdmin listaProyectosAdmin = new ListaProyectosAdmin(u);
+								listaProyectosAdmin.setVisible(true);
+								dispose();
 							} else {
-								lblProyectoExistente.setVisible(true);
+								lblUsuarioExistente.setVisible(true);
 							}
-							
-						}
-						for(JCheckBox jcb : checkBoxes) {
-							if(jcb.isSelected()) {
-								Usuario user = udao.obtenerUsuarioPorNombre(jcb.getText());
-								if(!updao.existeRelacion(p, user)) {
-									if(jcb.getText().equals(user.getUserName()))
-										updao.insertar(new UsuarioProyecto(p.getIdProyecto(), user.getUserName()));
-								}
-								
-
+						} else {
+							if(user.getUserName().equals(txtNombreUser.getText()) || userTemp == null) {
+								udao.modificar(new Usuario(txtNombreUser.getText(), textFieldContrasena.getText(), cbRol.getSelectedItem().toString(), null), user.getUserName());
+								ListaProyectosAdmin listaProyectosAdmin = new ListaProyectosAdmin(u);
+								listaProyectosAdmin.setVisible(true);
+								dispose();
 							} else {
-								if(updao.existeRelacion(p, udao.obtenerUsuarioPorNombre(jcb.getText()))) {
-									updao.eliminar(new UsuarioProyecto(p.getIdProyecto(), jcb.getText()));
-								}
-
+								lblUsuarioExistente.setVisible(true);
 							}
-						}
-						if(ptemp == null || p.getNombreProyecto().equals(txtNombrePro.getText())) {
-							ListaProyectosAdmin listaProyectosAdmin = new ListaProyectosAdmin(u);
-							listaProyectosAdmin.setVisible(true);
-							dispose();
 						}
 						
 					} else {
-
-						if(ptemp == null) {
-							pdao.insertar(new Proyecto(0, txtNombrePro.getText(), null));
-							Proyecto temp = pdao.obtenerProyectoPorNombre(txtNombrePro.getText());
-							for(JCheckBox jcb : checkBoxes) {
-								if(jcb.isSelected()) {
-									Usuario user = udao.obtenerUsuarioPorNombre(jcb.getText());
-									if(jcb.getText().equals(user.getUserName()))
-										updao.insertar(new UsuarioProyecto(temp.getIdProyecto(), user.getUserName()));
-
-								}
-							}
-							ListaProyectosAdmin listaProyectosAdmin = new ListaProyectosAdmin(u);
-							listaProyectosAdmin.setVisible(true);
-							dispose();
-						} else {
-							lblProyectoExistente.setVisible(true);
-						}
+						lblVacioPass.setVisible(true);
 					}
-
-
 				} else {
 					lblVacio.setVisible(true);
 				}
-
+				
 			}
 		});
 
@@ -225,6 +216,10 @@ public class AddEditUsuario extends JFrame {
 		});
 		botonVolver.setBounds(400, 600, 250, 40);
 		contentPane.add(botonVolver);
+		
+		
+		
+		
 		
 	}
 }

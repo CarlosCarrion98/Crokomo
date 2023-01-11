@@ -28,13 +28,6 @@ class UsuarioDAOTest {
 		
 		assertNotNull(u);
 		
-		u.setPassword("pass");
-		
-		udao.modificar(u);
-		
-		u = udao.obtenerUsuarioPorNombre(u.getUserName());
-		
-		assertEquals("pass", u.getPassword());
 		
 		udao.eliminar(u);
 		

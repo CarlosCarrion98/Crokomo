@@ -215,9 +215,12 @@ public class ListaProyectosAdmin extends JFrame {
 		botonModificarUsuario.setEnabled(false);
 		botonModificarUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(listaProyectos.getSelectedIndex() != -1)
+				if(listaUsuarios.getSelectedIndex() != -1)
 				{
 					Usuario user = listaUsuarios.getSelectedValue();
+					AddEditUsuario editUser = new AddEditUsuario(u, user);
+					editUser.setVisible(true);
+					dispose();
 				}
 			}
 		});
@@ -302,7 +305,9 @@ public class ListaProyectosAdmin extends JFrame {
 		JButton botonCrearUsuario = new JButton("Crear Usuario");
 		botonCrearUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				AddEditUsuario addUser = new AddEditUsuario(u, null);
+				addUser.setVisible(true);
+				dispose();
 			}
 		});
 		botonCrearUsuario.setFont(new Font("Tahoma", Font.PLAIN, 20));

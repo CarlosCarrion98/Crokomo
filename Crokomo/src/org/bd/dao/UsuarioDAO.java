@@ -27,12 +27,15 @@ public class UsuarioDAO extends Conexion{
 		}
 	}
 
-	public void modificar(Usuario u) {
+	public void modificar(Usuario u, String oldUserName) {
 		try {
 			iniciarConexion();
-			PreparedStatement st = connection.prepareStatement("UPDATE USUARIO SET contraseña = ? where nombreUsuario = ?");
-			st.setString(1, u.getPassword());
-			st.setString(2, u.getUserName());
+			PreparedStatement st = connection.prepareStatement("UPDATE USUARIO SET nombreUsuario = ?, contraseña = ?, Rol = ? where nombreUsuario = ?");
+			
+			st.setString(1, u.getUserName());
+			st.setString(2, u.getPassword());
+			st.setString(3, u.getRol());
+			st.setString(4, oldUserName);
 
 			st.executeUpdate();
 		} catch (SQLException e) {
